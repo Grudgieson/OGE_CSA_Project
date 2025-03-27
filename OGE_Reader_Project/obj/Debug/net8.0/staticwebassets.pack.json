@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "c:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_Reader_Project\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "c:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_Reader_Project\\wwwroot\\oge_logo.png",
+      "PackagePath": "staticwebassets\\oge_logo.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.OGE_Reader_Project.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.OGE_Reader_Project.props",
+      "PackagePath": "build\\OGE_Reader_Project.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.OGE_Reader_Project.props",
+      "PackagePath": "buildMultiTargeting\\OGE_Reader_Project.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.OGE_Reader_Project.props",
+      "PackagePath": "buildTransitive\\OGE_Reader_Project.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

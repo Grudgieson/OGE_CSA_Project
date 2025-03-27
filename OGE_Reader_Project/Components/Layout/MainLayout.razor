@@ -1,0 +1,255 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="@_theme" IsDarkMode="_isDarkMode" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+<MudLayout>
+
+    <MudAppBar Elevation="1">
+        <MudImage Src="oge_logo.png" Width="102" Alt="Oklahoma Gas and Electric Logo"></MudImage>
+        <MudSpacer />
+
+        <MudButton Class="mr-4" Href="/" Variant.Text>Dashboard</MudButton>
+        <MudButton Class="mr-4" Href="counter" Variant.Text>Counter</MudButton>
+
+        <MudFileUpload T="IBrowserFile" FilesChanged="FileUploaded">
+            <ActivatorContent>
+                <MudButton Class="mr-4" Variant="Variant.Filled"
+                        Color="Color.Primary"
+                        StartIcon="@Icons.Material.Filled.CloudUpload">
+                    Upload
+                </MudButton>
+            </ActivatorContent>
+        </MudFileUpload>
+
+        <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
+    </MudAppBar>
+
+    <MudMainContent Class="mt-16 pa-4">
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+
+<div id="blazor-error-ui" data-nosnippet>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
+</div>
+
+@code {
+    private bool _drawerOpen = true;
+    private bool _isDarkMode = true;
+    private MudTheme? _theme = null;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _theme = new()
+        {
+            PaletteLight = _lightPalette,
+            PaletteDark = _darkPalette,
+            LayoutProperties = new LayoutProperties()
+        };
+    }
+
+    private void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    private void DarkModeToggle()
+    {
+        _isDarkMode = !_isDarkMode;
+    }
+
+    private readonly PaletteLight _lightPalette = new()
+    {
+        Black = "#110e2d",
+        AppbarText = "#424242",
+        AppbarBackground = "rgba(255,255,255,0.8)",
+        DrawerBackground = "#ffffff",
+        GrayLight = "#e8e8e8",
+        GrayLighter = "#f9f9f9",
+    };
+
+    private readonly PaletteDark _darkPalette = new()
+    {
+        Primary = "#7e6fff",
+        Surface = "#1e1e2d",
+        Background = "#1a1a27",
+        BackgroundGray = "#151521",
+        AppbarText = "#92929f",
+        AppbarBackground = "rgba(26,26,39,0.8)",
+        DrawerBackground = "#1a1a27",
+        ActionDefault = "#74718e",
+        ActionDisabled = "#9999994d",
+        ActionDisabledBackground = "#605f6d4d",
+        TextPrimary = "#b2b0bf",
+        TextSecondary = "#92929f",
+        TextDisabled = "#ffffff33",
+        DrawerIcon = "#92929f",
+        DrawerText = "#92929f",
+        GrayLight = "#2a2833",
+        GrayLighter = "#1e1e2d",
+        Info = "#4a86ff",
+        Success = "#3dcb6c",
+        Warning = "#ffb545",
+        Error = "#ff3f5f",
+        LinesDefault = "#33323e",
+        TableLines = "#33323e",
+        Divider = "#292838",
+        OverlayLight = "#1e1e2d80",
+    };
+
+    public string DarkLightModeButtonIcon => _isDarkMode switch
+    {
+        true => Icons.Material.Rounded.AutoMode,
+        false => Icons.Material.Outlined.DarkMode,
+    };
+
+    <!-- #region -->
+
+    // Code that processes file uploads
+    public string FileName { get; set; } = "";
+    public string ErrorMessage { get; set; } = "";
+
+
+    // Dictionary of ReaderEvents that uses the Unique ID as a key
+    public static Dictionary<string, List<ReaderEvent>> eventDictionary = new Dictionary<string, List<ReaderEvent>>();
+
+    public async Task FileUploaded(IBrowserFile e)
+    {
+        var browserFile = e;
+        FileName = browserFile.Name;
+
+        if (browserFile != null)
+        {
+
+            try
+            {
+                
+                // Saving Uploaded file to disk
+                var fileStream = browserFile.OpenReadStream(long.MaxValue);
+                var destinationStream = new FileStream(FileName, FileMode.Create);
+                await fileStream.CopyToAsync(destinationStream);
+                destinationStream.Close();
+
+
+                // Create a stream reader that reads from the stream when a file is uploaded & make an eventList to keep track
+                var sr = new StreamReader(FileName);
+                var eventList = new List<ReaderEvent>();
+
+                // Check every line of the stream in StreamReader
+                string? line = sr.ReadLine();
+                while((line = sr.ReadLine()) != null) // Until there is no remaining lines left
+                {   
+
+                    // Break each line into an array with Reader Data
+                    string[] data = line.Split(",");
+
+                    // Create a new Reader Event using the string array of the current line
+                    eventList.Add(new ReaderEvent(
+                        data[0],
+                        data[1],
+                        data[2],
+                        data[3],
+                        data[4],
+                        data[5]
+                    ));
+
+                }
+
+                // Returns a dictionary with Readers and their Respective Events
+                eventDictionary = OrganizeDictionData(eventList);
+
+                // Close the file stream of the uploaded file
+                fileStream.Close();
+
+                this.StateHasChanged();
+
+            }
+            catch (Exception exception)
+            {
+                ErrorMessage = exception.Message;
+            }
+        }
+    }
+    public Dictionary<string, List<ReaderEvent>> OrganizeDictionData(List<ReaderEvent> rawData)
+    {
+
+        Dictionary<string, List<ReaderEvent>> resultDict = new Dictionary<string, List<ReaderEvent>>();
+
+        // Goes through each recorded ReaderEvent in the raw Data list
+        foreach(ReaderEvent rawReaderEvent in rawData)
+        {
+
+            // Get the reader's ID that captured the event and add or create a section in the dictionary accordingly
+            var readerID = rawReaderEvent.GetEventUniqueID();
+            if(!resultDict.ContainsKey(readerID))
+            {
+
+                resultDict[readerID] = new List<ReaderEvent>(); // Create a entry when unique readerID is found
+
+            }
+            resultDict[readerID].Add(rawReaderEvent); // Add an event to the respective reader
+
+        }
+
+        return resultDict;
+        
+    }
+
+    public class ReaderEvent
+    {
+
+        // Data of a ReaderEvent
+        private DateTime time;
+        private string location;
+        private string description;
+        private string hashID;
+        private string devID;
+        private string machine;
+
+        // Constructors
+        public ReaderEvent()
+        {
+
+            time = DateTime.Now;
+            location = "N/A";
+            description = "N/A";
+            hashID = "N/A";
+            devID = "N/A";
+            machine = "N/A";
+
+        }
+        public ReaderEvent(string eTime, string eLocation, string eDescription, string eHashID, string eDevID, string eMachine)
+        {
+
+            time = DateTime.Parse(eTime);
+            location = eLocation;
+            description = eDescription;
+            hashID = eHashID;
+            devID = eDevID;
+            machine = eMachine;
+
+        }
+
+        public DateTime GetEventTime() => time;
+        public string GetEventLocation() => location;
+        public string GetEventDescription() => description;
+        public string GetEventHashID() => hashID;
+        public string GetEventDevID() => devID;
+        public string GetEventMachine() => machine;
+
+        public string GetEventUniqueID() => devID + machine;
+
+    }
+    
+    <!-- #endregion -->
+
+}
+
+

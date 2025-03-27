@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OGE_Reader_Project", "OGE_Reader_Project.csproj", "{E1B6D37F-0690-FEAB-C5A0-F9F27C66485A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1B6D37F-0690-FEAB-C5A0-F9F27C66485A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1B6D37F-0690-FEAB-C5A0-F9F27C66485A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1B6D37F-0690-FEAB-C5A0-F9F27C66485A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1B6D37F-0690-FEAB-C5A0-F9F27C66485A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B311D937-55C0-4D1F-9786-46F485806228}
+	EndGlobalSection
+EndGlobal

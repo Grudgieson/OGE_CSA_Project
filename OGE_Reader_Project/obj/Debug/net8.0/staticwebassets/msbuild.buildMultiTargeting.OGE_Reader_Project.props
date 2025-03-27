@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\OGE_Reader_Project.props" />
+</Project>

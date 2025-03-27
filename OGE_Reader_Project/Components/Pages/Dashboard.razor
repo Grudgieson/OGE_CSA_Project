@@ -1,0 +1,41 @@
+﻿@page "/"
+
+<PageTitle>Dashboard</PageTitle>
+
+<MudText Typo="Typo.h5"Class="mb-4 pa-8">Most Active User</MudText>
+
+<MudText Typo="Typo.h5"Class="mb-4 pa-8">Most Active Reader</MudText>
+
+<MudText Typo="Typo.h5"Class="mb-4 pa-8">Busiest Day</MudText>
+
+<MudText Typo="Typo.h5"Class="mb-4 pa-8">Average Unique Vistors Per Day</MudText>
+
+<MudText Typo="Typo.subtitle1"Class="mb-4 pa-8">Scan Activity</MudText>
+<MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
+    <thead>
+        <tr>
+            <th>ReaderID</th>
+            <th>Reader Name</th>
+            <th>Reader Events</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!--
+        @foreach(var reader in eventDictionary)
+        {
+            <tr>
+                <td>@reader.Key</td>
+                <td>@reader.Value[0].GetEventDescription()</td>
+                <td>@reader.Value.Count()</td>
+            </tr>
+        }
+        -->
+    </tbody>
+</MudSimpleTable>
+
+
+@code{
+
+
+
+}
