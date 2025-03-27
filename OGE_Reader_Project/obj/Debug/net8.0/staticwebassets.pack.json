@@ -1,11 +1,11 @@
 {
   "Files": [
     {
-      "Id": "c:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_Reader_Project\\wwwroot\\favicon.ico",
+      "Id": "c:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "c:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_Reader_Project\\wwwroot\\oge_logo.png",
+      "Id": "c:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\oge_logo.png",
       "PackagePath": "staticwebassets\\oge_logo.png"
     },
     {

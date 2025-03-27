@@ -39,3 +39,45 @@ c:\Users\Garrison Knapp\Desktop\OG&E Reader Project\OGE_Reader_Project\obj\Debug
 c:\Users\Garrison Knapp\Desktop\OG&E Reader Project\OGE_Reader_Project\obj\Debug\net8.0\OGE_Reader_Project.pdb
 C:\Users\Garrison Knapp\Desktop\OG&E Reader Project\OGE_Reader_Project\obj\Debug\net8.0\OGE_Reader_Project.genruntimeconfig.cache
 C:\Users\Garrison Knapp\Desktop\OG&E Reader Project\OGE_Reader_Project\obj\Debug\net8.0\ref\OGE_Reader_Project.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\OGE_Reader_Project.csproj.AssemblyReference.cache
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\OGE_Reader_Project.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\OGE_Reader_Project.AssemblyInfoInputs.cache
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\OGE_Reader_Project.AssemblyInfo.cs
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\OGE_Reader_Project.csproj.CoreCompileInputs.cache
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\OGE_Reader_Project.MvcApplicationPartsAssemblyInfo.cache
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\OGE_Reader_Project.sourcelink.json
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\OGE_Reader_Project.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\refint\OGE_Reader_Project.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\OGE_Reader_Project.pdb
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\appsettings.Development.json
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\appsettings.json
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\OGE_Reader_Project.staticwebassets.runtime.json
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\OGE_Reader_Project.exe
+C:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\OGE_Reader_Project.deps.json
+C:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\OGE_Reader_Project.runtimeconfig.json
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\OGE_Reader_Project.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\OGE_Reader_Project.pdb
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\Microsoft.AspNetCore.Authorization.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\Microsoft.AspNetCore.Components.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Forms.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Web.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\Microsoft.AspNetCore.Metadata.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\Microsoft.Extensions.Localization.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\Microsoft.Extensions.Localization.Abstractions.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\Microsoft.JSInterop.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\bin\Debug\net8.0\MudBlazor.dll
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\staticwebassets.build.json
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\staticwebassets.development.json
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\staticwebassets\msbuild.OGE_Reader_Project.Microsoft.AspNetCore.StaticWebAssets.props
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\staticwebassets\msbuild.build.OGE_Reader_Project.props
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.OGE_Reader_Project.props
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.OGE_Reader_Project.props
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\staticwebassets.pack.json
+c:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\scopedcss\bundle\OGE_Reader_Project.styles.css
+C:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\OGE_Read.6330BD80.Up2Date
+C:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\OGE_Reader_Project.genruntimeconfig.cache
+C:\Users\grudg\Desktop\OGE_CSA_Project\OGE_Reader_Project\obj\Debug\net8.0\ref\OGE_Reader_Project.dll
