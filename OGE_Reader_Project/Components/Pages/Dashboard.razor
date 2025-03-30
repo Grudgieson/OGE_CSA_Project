@@ -12,18 +12,28 @@
     </ActivatorContent>
 </MudFileUpload>
 
-<MudText Typo="Typo.h5"Class="mb-4 pa-8">Most Active User</MudText>
 
-<MudText Typo="Typo.h5"Class="mb-4 pa-8">Most Active Reader</MudText>
+<div class="ml-20">
 
-<MudText Typo="Typo.h5"Class="mb-4 pa-8">Busiest Day</MudText>
+    <MudText Typo="Typo.h4"Class="mt-8">Most Active User</MudText>
+    <MudText Typo="Typo.subtitle1"Class="">@mostActiveHashID</MudText>
 
-<MudText Typo="Typo.h5"Class="mb-4 pa-8">Average Unique Vistors Per Day</MudText>
+    <MudText Typo="Typo.h4"Class="mt-8">Most Active Reader</MudText>
+    <MudText Typo="Typo.subtitle1"Class="">@mostActiveReader</MudText>
 
-<div>
-    <MudText Typo="Typo.subtitle1"Class="mb-4 pa-8">Scan Activity</MudText>
-    <MudChart ChartType="ChartType.Line" ChartSeries="@Series" XAxisLabels="@XAxisLabels" Width="100%" Height="350px" ChartOptions="@Options"></MudChart>
+    <MudText Typo="Typo.h4"Class="mt-8">Busiest Day</MudText>
+    <MudText Typo="Typo.subtitle1"Class="">@busiestDay</MudText>
+
+    <MudText Typo="Typo.h4"Class="mt-8">Average Unique Visitors Per Day</MudText>
+    <MudText Typo="Typo.subtitle1"Class="">@averageUniqueVisitorsPerDay</MudText>
+
+    <MudText Typo="Typo.h6"Class="mt-8">Scan Activity</MudText>
+
 </div>
+
+<MudChart ChartType="ChartType.Line" ChartSeries="@Series" XAxisLabels="@XAxisLabels" Width="100%" Height="350px" ChartOptions="@Options"></MudChart>
+
+<h1>MasterList count = @masterListCount</h1>
 
 <MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
     <thead>
@@ -48,9 +58,26 @@
 <MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
     <thead>
         <tr>
+            <th>Date</th>
+            <th>Number of Events</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var reader in eventDictionaryFilteredByDay)
+        {
+            <tr>
+                <td>@reader.Key</td>
+                <td>@reader.Value.Count()</td>
+            </tr>
+        }
+    </tbody>
+</MudSimpleTable>
+
+<MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
+    <thead>
+        <tr>
             <th>Day of The Week</th>
-            <th>Reader Name</th>
-            <th>Reader Events</th>
+            <th>Number of Events</th>
         </tr>
     </thead>
     <tbody>
@@ -58,7 +85,24 @@
         {
             <tr>
                 <td>@reader.Key</td>
-                <td>@reader.Value[0].GetEventDescription()</td>
+                <td>@reader.Value.Count()</td>
+            </tr>
+        }
+    </tbody>
+</MudSimpleTable>
+
+<MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
+    <thead>
+        <tr>
+            <th>UserID</th>
+            <th>Events Invoked By User</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var reader in eventDictionaryFilteredHashID)
+        {
+            <tr>
+                <td>@reader.Key</td>
                 <td>@reader.Value.Count()</td>
             </tr>
         }
@@ -70,11 +114,20 @@
     public static string FileName { get; set; } = "";
     public string ErrorMessage { get; set; } = "";
 
+    public int masterListCount = 0;
+
 
     // Dictionary of ReaderEvents that uses the Unique ID as a key
     public static Dictionary<string, List<ReaderEvent>> eventDictionary = new Dictionary<string, List<ReaderEvent>>();
     public static Dictionary<string, List<ReaderEvent>> eventDictionaryFilteredByTime = new Dictionary<string, List<ReaderEvent>>();
+    public static Dictionary<string, List<ReaderEvent>> eventDictionaryFilteredByDay = new Dictionary<string, List<ReaderEvent>>();
+    public static Dictionary<string, List<ReaderEvent>> eventDictionaryFilteredHashID = new Dictionary<string, List<ReaderEvent>>();
 
+    // Highlight Variables
+    public string mostActiveHashID = "N/A";
+    public string mostActiveReader = "N/A";
+    public string busiestDay = "N/A";
+    public int averageUniqueVisitorsPerDay = 0;
 
     // Chart Variables
     public static ChartOptions Options = new ChartOptions();
@@ -100,9 +153,9 @@
                 destinationStream.Close();
 
 
-                // Create a stream reader that reads from the stream when a file is uploaded & make an eventList to keep track
+                // Create a stream reader that reads from the stream when a file is uploaded & make an masterList to keep track
                 var sr = new StreamReader(FileName);
-                var eventList = new List<ReaderEvent>();
+                var masterList = new List<ReaderEvent>();
 
                 // Check every line of the stream in StreamReader
                 string? line = sr.ReadLine();
@@ -113,7 +166,7 @@
                     string[] data = line.Split(",");
 
                     // Create a new Reader Event using the string array of the current line
-                    eventList.Add(new ReaderEvent(
+                    masterList.Add(new ReaderEvent(
                         data[0],
                         data[1],
                         data[2],
@@ -124,9 +177,18 @@
 
                 }
 
+                masterListCount = masterList.Count;
+
                 // Returns a dictionary with Readers and their Respective Events
-                eventDictionary = OrganizeDictionData(eventList);
-                eventDictionaryFilteredByTime = OrganizeDictionByDate(eventList);
+                eventDictionary = OrganizeDictionData(masterList);
+                eventDictionaryFilteredByTime = OrganizeDictionByDayOfTheWeek(masterList);
+                eventDictionaryFilteredByDay = OrganizeDictionByDay(masterList);
+                eventDictionaryFilteredHashID = OrganizeDictionByHashID(masterList);
+
+                // Get highlights after all the dictionaries have been organized
+                GetMostActiveHashID();
+                GetMostActiveReader();
+                GetBusiestDay();
 
                 // Gets the data for creating the chart
                 GetChartData();
@@ -167,7 +229,31 @@
         return resultDict;
         
     }
-    public Dictionary<string, List<ReaderEvent>> OrganizeDictionByDate(List<ReaderEvent> masterList)
+    public Dictionary<string, List<ReaderEvent>> OrganizeDictionByDay(List<ReaderEvent> masterList)
+    {
+
+        Dictionary<string, List<ReaderEvent>> resultDict = new Dictionary<string, List<ReaderEvent>>();
+
+        // Goes through each recorded ReaderEvent in the raw Data list
+        foreach(ReaderEvent rawReaderEvent in masterList)
+        {
+
+            // Get the reader's ID that captured the event and add or create a section in the dictionary accordingly
+            string dayOfEvent = rawReaderEvent.GetEventTime().Date.ToString();
+            if(!resultDict.ContainsKey(dayOfEvent))
+            {
+
+                resultDict[dayOfEvent] = new List<ReaderEvent>(); // Create a entry when an event occured on a unique time is found
+
+            }
+            resultDict[dayOfEvent].Add(rawReaderEvent); // Add an event to the respective reader
+
+        }
+
+        return resultDict;
+
+    }
+    public Dictionary<string, List<ReaderEvent>> OrganizeDictionByDayOfTheWeek(List<ReaderEvent> masterList)
     {
 
         Dictionary<string, List<ReaderEvent>> resultDict = new Dictionary<string, List<ReaderEvent>>();
@@ -191,6 +277,105 @@
         return resultDict;
 
     }
+    public Dictionary<string, List<ReaderEvent>> OrganizeDictionByHashID(List<ReaderEvent> masterList)
+    {
+
+        Dictionary<string, List<ReaderEvent>> resultDict = new Dictionary<string, List<ReaderEvent>>();
+
+        // Goes through each recorded ReaderEvent in the raw Data list
+        foreach(ReaderEvent rawReaderEvent in masterList)
+        {
+
+            // Get the reader's ID that captured the event and add or create a section in the dictionary accordingly
+            string userHashID = rawReaderEvent.GetEventHashID();
+            if(!resultDict.ContainsKey(userHashID))
+            {
+
+                resultDict[userHashID] = new List<ReaderEvent>(); // Create a entry when an event occured on a unique time is found
+
+            }
+            resultDict[userHashID].Add(rawReaderEvent); // Add an event to the respective reader
+
+        }
+
+        return resultDict;
+
+    }
+
+    public void GetMostActiveHashID()
+    {
+
+        // Sets the currentHighestActiveID to the first ID in the dictionary
+        string currentHighestActiveID = eventDictionaryFilteredHashID.Keys.First();
+
+        // Check each registered user in the dictionary and if the curret user has a greater number of invoked events compared to the current highest set the current highest to that user
+        foreach(var user in eventDictionaryFilteredHashID)
+        {
+
+            if(user.Value.Count >= eventDictionaryFilteredHashID[currentHighestActiveID].Count)
+            {
+
+                currentHighestActiveID = user.Key;
+
+            }
+
+        }
+
+        mostActiveHashID = currentHighestActiveID;
+        
+    }
+    public void GetMostActiveReader()
+    {
+
+        // Sets the currentHighestActiveReader to the first ID in the dictionary
+        string currentHighestActiveReader = eventDictionary.Keys.First();
+
+        // Check each registered reader in the dictionary and if the curret reader has a greater number of events compared to the current highest set the current highest to that reader
+        foreach(var reader in eventDictionary)
+        {
+
+            if(reader.Value.Count >= eventDictionary[currentHighestActiveReader].Count)
+            {
+
+                currentHighestActiveReader = reader.Key;
+
+            }
+
+        }
+
+        // Returns the reader description of the mostActiveReader
+        mostActiveReader = eventDictionary[currentHighestActiveReader][0].GetEventDescription();
+        
+    }
+    public void GetBusiestDay()
+    {
+
+        // Sets the currentBusiestDay to the first ID in the dictionary
+        string currentBusiestDay = eventDictionaryFilteredByTime.Keys.First();
+
+        // Check each day of the week in the dictionary and if the curret day has a greater number of events compared to the current highest day of the week set the current highest to that day of the week
+        foreach(var day in eventDictionaryFilteredByTime)
+        {
+
+            if(day.Value.Count >= eventDictionaryFilteredByTime[currentBusiestDay].Count)
+            {
+
+                currentBusiestDay = day.Key;
+
+            }
+
+        }
+
+        busiestDay = currentBusiestDay;
+        
+    }
+    public void GetAverageUniqueVisitorsPerDay()
+    {
+
+        
+        
+    }
+
     public void GetChartData()
     {
 
@@ -212,6 +397,8 @@
 
 
     }
+    
+    
     public class ReaderEvent
     {
 
