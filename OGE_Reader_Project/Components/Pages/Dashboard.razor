@@ -189,6 +189,7 @@
                 GetMostActiveHashID();
                 GetMostActiveReader();
                 GetBusiestDay();
+                GetAverageUniqueVisitorsPerDay();
 
                 // Gets the data for creating the chart
                 GetChartData();
@@ -351,13 +352,13 @@
     {
 
         // Sets the currentBusiestDay to the first ID in the dictionary
-        string currentBusiestDay = eventDictionaryFilteredByTime.Keys.First();
+        string currentBusiestDay = eventDictionaryFilteredByDay.Keys.First();
 
         // Check each day of the week in the dictionary and if the curret day has a greater number of events compared to the current highest day of the week set the current highest to that day of the week
-        foreach(var day in eventDictionaryFilteredByTime)
+        foreach(var day in eventDictionaryFilteredByDay)
         {
 
-            if(day.Value.Count >= eventDictionaryFilteredByTime[currentBusiestDay].Count)
+            if(day.Value.Count >= eventDictionaryFilteredByDay[currentBusiestDay].Count)
             {
 
                 currentBusiestDay = day.Key;
@@ -372,7 +373,40 @@
     public void GetAverageUniqueVisitorsPerDay()
     {
 
+        List<int> totalUniqueHashIDForEachDayList = new List<int>();
+
+        // Go loop through each day
+        foreach(var day in eventDictionaryFilteredByDay.Keys)
+        {
+
+            List<string> seenHashIDList = new List<string>();
+
+            // Loop through all the events in that days Event List
+            foreach(var readerEvent in eventDictionaryFilteredByDay[day])
+            {
+
+                if(!seenHashIDList.Contains(readerEvent.GetEventHashID()))
+                {
+
+                    seenHashIDList.Add(readerEvent.GetEventHashID());
+
+                }
+
+            }
+
+            totalUniqueHashIDForEachDayList.Add(seenHashIDList.Count());
+
+        }
         
+        // Set AverageUniqueVisitorsPerDay to SeenHashIDList Count divided by the numberOfDays Caught in the eventDictionaryFilteredByDay
+        int totalUniqueHashIDOverAllDays = 0;
+        foreach(int uniqueHashForThatDay in totalUniqueHashIDForEachDayList)
+        {
+
+            totalUniqueHashIDOverAllDays += uniqueHashForThatDay;
+
+        }
+        averageUniqueVisitorsPerDay = totalUniqueHashIDOverAllDays/totalUniqueHashIDForEachDayList.Count;
         
     }
 
