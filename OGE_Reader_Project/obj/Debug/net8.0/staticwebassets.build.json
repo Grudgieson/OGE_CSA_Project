@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "6vs5mIIbB1epSeZ9C3v8zeyjV/DOnfh3lceHNeWwEhg=",
+  "Hash": "sSSI+V9qF/oGTv4YCCe88ulZprX2p/tai1GFqCEGLgU=",
   "Source": "OGE_Reader_Project",
   "BasePath": "_content/OGE_Reader_Project",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "OGE_Reader_Project\\wwwroot",
       "Source": "OGE_Reader_Project",
-      "ContentRoot": "C:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\",
       "BasePath": "_content/OGE_Reader_Project",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Garrison Knapp\\.nuget\\packages\\mudblazor\\8.4.0\\staticwebassets\\MudBlazor.min.css",
+      "Identity": "C:\\Users\\grudg\\.nuget\\packages\\mudblazor\\8.5.1\\staticwebassets\\MudBlazor.min.css",
       "SourceId": "MudBlazor",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\Garrison Knapp\\.nuget\\packages\\mudblazor\\8.4.0\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\grudg\\.nuget\\packages\\mudblazor\\8.5.1\\staticwebassets\\",
       "BasePath": "_content/MudBlazor",
       "RelativePath": "MudBlazor.min.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Garrison Knapp\\.nuget\\packages\\mudblazor\\8.4.0\\staticwebassets\\MudBlazor.min.css"
+      "OriginalItemSpec": "C:\\Users\\grudg\\.nuget\\packages\\mudblazor\\8.5.1\\staticwebassets\\MudBlazor.min.css"
     },
     {
-      "Identity": "C:\\Users\\Garrison Knapp\\.nuget\\packages\\mudblazor\\8.4.0\\staticwebassets\\MudBlazor.min.js",
+      "Identity": "C:\\Users\\grudg\\.nuget\\packages\\mudblazor\\8.5.1\\staticwebassets\\MudBlazor.min.js",
       "SourceId": "MudBlazor",
       "SourceType": "Package",
-      "ContentRoot": "C:\\Users\\Garrison Knapp\\.nuget\\packages\\mudblazor\\8.4.0\\staticwebassets\\",
+      "ContentRoot": "C:\\Users\\grudg\\.nuget\\packages\\mudblazor\\8.5.1\\staticwebassets\\",
       "BasePath": "_content/MudBlazor",
       "RelativePath": "MudBlazor.min.js",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\Garrison Knapp\\.nuget\\packages\\mudblazor\\8.4.0\\staticwebassets\\MudBlazor.min.js"
+      "OriginalItemSpec": "C:\\Users\\grudg\\.nuget\\packages\\mudblazor\\8.5.1\\staticwebassets\\MudBlazor.min.js"
     },
     {
-      "Identity": "c:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\favicon.ico",
+      "Identity": "c:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\favicon.ico",
       "SourceId": "OGE_Reader_Project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\",
       "BasePath": "_content/OGE_Reader_Project",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "c:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\oge_logo.png",
+      "Identity": "c:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\oge_logo.png",
       "SourceId": "OGE_Reader_Project",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\",
       "BasePath": "_content/OGE_Reader_Project",
       "RelativePath": "oge_logo.png",
       "AssetKind": "All",

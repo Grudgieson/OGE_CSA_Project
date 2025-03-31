@@ -228,7 +228,7 @@
           }
         }
       },
-      "MudBlazor/8.4.0": {
+      "MudBlazor/8.5.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Components": "8.0.12",
@@ -638,10 +638,10 @@
         "microsoft.jsinterop.nuspec"
       ]
     },
-    "MudBlazor/8.4.0": {
-      "sha512": "JdpJXe13fhPElc4ajoDEr7tbzib+N1SVUaov21lZAVd0DgRWuVTJsfVyrEFCD/oSopRcvub5cpHSJM7MYUVCfQ==",
+    "MudBlazor/8.5.1": {
+      "sha512": "xzGhtY60e1fvvyI7rJSYYV0UEkvY8niKuTaqby19cb8rELd29EpPU439RVL8KjVSMy473BEcpgYWBRAoDPGl8A==",
       "type": "package",
-      "path": "mudblazor/8.4.0",
+      "path": "mudblazor/8.5.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -659,7 +659,7 @@
         "lib/net8.0/MudBlazor.xml",
         "lib/net9.0/MudBlazor.dll",
         "lib/net9.0/MudBlazor.xml",
-        "mudblazor.8.4.0.nupkg.sha512",
+        "mudblazor.8.5.1.nupkg.sha512",
         "mudblazor.nuspec",
         "staticwebassets/MudBlazor.min.css",
         "staticwebassets/MudBlazor.min.js"
@@ -701,19 +701,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Garrison Knapp\\.nuget\\packages\\": {}
+    "C:\\Users\\grudg\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_CSA_Project\\OGE_Reader_Project\\OGE_Reader_Project.csproj",
+      "projectUniqueName": "C:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\OGE_Reader_Project.csproj",
       "projectName": "OGE_Reader_Project",
-      "projectPath": "C:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_CSA_Project\\OGE_Reader_Project\\OGE_Reader_Project.csproj",
-      "packagesPath": "C:\\Users\\Garrison Knapp\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_CSA_Project\\OGE_Reader_Project\\obj\\",
+      "projectPath": "C:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\OGE_Reader_Project.csproj",
+      "packagesPath": "C:\\Users\\grudg\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Garrison Knapp\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\grudg\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -766,7 +766,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.406/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
