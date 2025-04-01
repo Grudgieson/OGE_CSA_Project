@@ -12,99 +12,127 @@
     </ActivatorContent>
 </MudFileUpload>
 
+<MudGrid Spacing="0" Justify="Justify.Center">
+    <MudItem xs="6">
+        <div Class="ml-20">
+
+            <MudText Typo="Typo.h4"Class="mt-8">Most Active User</MudText>
+            <MudText Typo="Typo.subtitle1"Class="">@mostActiveHashID</MudText>
+
+            <MudText Typo="Typo.h4"Class="mt-8">Most Active Reader</MudText>
+            <MudText Typo="Typo.subtitle1"Class="">@mostActiveReader</MudText>
+
+            <MudText Typo="Typo.h4"Class="mt-8">Busiest Day of The Week</MudText>
+            <MudText Typo="Typo.subtitle1"Class="">@busiestDay</MudText>
+
+            <MudText Typo="Typo.h4"Class="mt-8">Average Unique Visitors Per Day</MudText>
+            <MudText Typo="Typo.subtitle1"Class="">@averageUniqueVisitorsPerDay</MudText>
+
+        </div>
+    </MudItem>
+
+    <MudItem xs="6">
+        <MudSimpleTable Class="mb-4" Style="width:800px" FixedHeader="true">
+            <thead>
+                <tr>
+                    <th>Alert</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var alert in alertsList)
+                {
+                    <tr>
+                        <td>@alert.alertType</td>
+                        <td>@alert.alertDescription</td>
+                    </tr>
+                }
+            </tbody>
+        </MudSimpleTable>
+    </MudItem>
+</MudGrid>
 
 <div class="ml-20">
-
-    <MudText Typo="Typo.h4"Class="mt-8">Most Active User</MudText>
-    <MudText Typo="Typo.subtitle1"Class="">@mostActiveHashID</MudText>
-
-    <MudText Typo="Typo.h4"Class="mt-8">Most Active Reader</MudText>
-    <MudText Typo="Typo.subtitle1"Class="">@mostActiveReader</MudText>
-
-    <MudText Typo="Typo.h4"Class="mt-8">Busiest Day</MudText>
-    <MudText Typo="Typo.subtitle1"Class="">@busiestDay</MudText>
-
-    <MudText Typo="Typo.h4"Class="mt-8">Average Unique Visitors Per Day</MudText>
-    <MudText Typo="Typo.subtitle1"Class="">@averageUniqueVisitorsPerDay</MudText>
-
-    <MudText Typo="Typo.h6"Class="mt-8">Scan Activity</MudText>
-
+    <MudText Typo="Typo.h6"Class="mt-8">Scan Activity Over (@chartFilter)</MudText>
+    <MudChart ChartType="ChartType.Line" ChartSeries="@Series" XAxisLabels="@XAxisLabels" Width="1750px" Height="420px" ChartOptions="@Options" AxisChartOptions="@axisOptions"></MudChart>
 </div>
 
-<MudChart ChartType="ChartType.Line" ChartSeries="@Series" XAxisLabels="@XAxisLabels" Width="100%" Height="350px" ChartOptions="@Options"></MudChart>
+<!--
 
-<h1>MasterList count = @masterListCount</h1>
+    <h1>MasterList count = @masterListCount</h1>
 
-<MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
-    <thead>
-        <tr>
-            <th>ReaderID</th>
-            <th>Reader Name</th>
-            <th>Reader Events</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var reader in eventDictionary)
-        {
+    <MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
+        <thead>
             <tr>
-                <td>@reader.Key</td>
-                <td>@reader.Value[0].GetEventDescription()</td>
-                <td>@reader.Value.Count()</td>
+                <th>ReaderID</th>
+                <th>Reader Name</th>
+                <th>Reader Events</th>
             </tr>
-        }
-    </tbody>
-</MudSimpleTable>
+        </thead>
+        <tbody>
+            @foreach(var reader in eventDictionary)
+            {
+                <tr>
+                    <td>@reader.Key</td>
+                    <td>@reader.Value[0].GetEventDescription()</td>
+                    <td>@reader.Value.Count()</td>
+                </tr>
+            }
+        </tbody>
+    </MudSimpleTable>
 
-<MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Number of Events</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var reader in eventDictionaryFilteredByDay)
-        {
+    <MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
+        <thead>
             <tr>
-                <td>@reader.Key</td>
-                <td>@reader.Value.Count()</td>
+                <th>Date</th>
+                <th>Number of Events</th>
             </tr>
-        }
-    </tbody>
-</MudSimpleTable>
+        </thead>
+        <tbody>
+            @foreach(var reader in eventDictionaryFilteredByDay)
+            {
+                <tr>
+                    <td>@reader.Key</td>
+                    <td>@reader.Value.Count()</td>
+                </tr>
+            }
+        </tbody>
+    </MudSimpleTable>
 
-<MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
-    <thead>
-        <tr>
-            <th>Day of The Week</th>
-            <th>Number of Events</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var reader in eventDictionaryFilteredByTime)
-        {
+    <MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
+        <thead>
             <tr>
-                <td>@reader.Key</td>
-                <td>@reader.Value.Count()</td>
+                <th>Day of The Week</th>
+                <th>Number of Events</th>
             </tr>
-        }
-    </tbody>
-</MudSimpleTable>
+        </thead>
+        <tbody>
+            @foreach(var reader in eventDictionaryFilteredByTime)
+            {
+                <tr>
+                    <td>@reader.Key</td>
+                    <td>@reader.Value.Count()</td>
+                </tr>
+            }
+        </tbody>
+    </MudSimpleTable>
 
-<MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
-    <thead>
-        <tr>
-            <th>UserID</th>
-            <th>Events Invoked By User</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var reader in eventDictionaryFilteredHashID)
-        {
+    <MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
+        <thead>
             <tr>
-                <td>@reader.Key</td>
-                <td>@reader.Value.Count()</td>
+                <th>UserID</th>
+                <th>Events Invoked By User</th>
             </tr>
-        }
-    </tbody>
-</MudSimpleTable>
+        </thead>
+        <tbody>
+            @foreach(var reader in eventDictionaryFilteredHashID)
+            {
+                <tr>
+                    <td>@reader.Key</td>
+                    <td>@reader.Value.Count()</td>
+                </tr>
+            }
+        </tbody>
+    </MudSimpleTable>
+
+-->

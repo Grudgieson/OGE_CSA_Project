@@ -20,15 +20,30 @@ namespace OGE_Reader_Project.Components.Pages
         public static Dictionary<string, List<ReaderEvent>> eventDictionaryFilteredHashID = new Dictionary<string, List<ReaderEvent>>();
 
         // Highlight Variables
-        public string mostActiveHashID = "N/A";
-        public string mostActiveReader = "N/A";
-        public string busiestDay = "N/A";
-        public int averageUniqueVisitorsPerDay = 0;
+        public static string mostActiveHashID = "N/A";
+        public static string mostActiveReader = "N/A";
+        public static string busiestDay = "N/A";
+        public static int averageUniqueVisitorsPerDay = 0;
 
         // Chart Variables
         public static ChartOptions Options = new ChartOptions();
+        public static AxisChartOptions axisOptions = new AxisChartOptions();
+
         public static List<ChartSeries> Series = new List<ChartSeries>();
         public static string[] XAxisLabels = Array.Empty<string>();
+
+        public static string chartFilter = "";
+
+        // Alert System Variables
+        private IEnumerable<DataAlert> alertsList = new List<DataAlert>()
+        {
+            new DataAlert("Impossible Movement", "User detecting using two readers at the same time"),
+            new DataAlert("Off Hours Access", "User scanned into this place at 2:00am on 6/23/2024"),
+            new DataAlert("Missed Exit Scan", "User scanned in to this place at this time but didn't scan out"),
+            new DataAlert("Ghost User", "User only scan 2 times in the past time"),
+            new DataAlert("Ghost User", "User only scan 2 times in the past time"),
+            new DataAlert("Ghost User", "User only scan 2 times in the past time"),
+        };
 
 
         public async Task FileUploaded(IBrowserFile e)
@@ -190,7 +205,7 @@ namespace OGE_Reader_Project.Components.Pages
             {
 
                 // Get the reader's ID that captured the event and add or create a section in the dictionary accordingly
-                string dayOfEvent = rawReaderEvent.GetEventTime().Date.ToString();
+                string dayOfEvent = rawReaderEvent.GetEventTime().Date.ToString("MMM dd");
                 if(!resultDict.ContainsKey(dayOfEvent))
                 {
 
@@ -302,13 +317,13 @@ namespace OGE_Reader_Project.Components.Pages
         {
 
             // Sets the currentBusiestDay to the first ID in the dictionary
-            string currentBusiestDay = eventDictionaryFilteredByDay.Keys.First();
+            string currentBusiestDay = eventDictionaryFilteredByTime.Keys.First();
 
             // Check each day of the week in the dictionary and if the curret day has a greater number of events compared to the current highest day of the week set the current highest to that day of the week
-            foreach(var day in eventDictionaryFilteredByDay)
+            foreach(var day in eventDictionaryFilteredByTime)
             {
 
-                if(day.Value.Count >= eventDictionaryFilteredByDay[currentBusiestDay].Count)
+                if(day.Value.Count >= eventDictionaryFilteredByTime[currentBusiestDay].Count)
                 {
 
                     currentBusiestDay = day.Key;
@@ -363,11 +378,17 @@ namespace OGE_Reader_Project.Components.Pages
         public void GetChartData()
         {
 
+            chartFilter = $"{eventDictionaryFilteredByDay.Keys.First()} - {eventDictionaryFilteredByDay.Keys.Last()}";
+
+            // Sets Graph display settings
+            axisOptions.MatchBoundsToSize = true;
+            Options.InterpolationOption = InterpolationOption.NaturalSpline;
+
             // Set the labels of the chart using the keys of the dictionary
-            XAxisLabels = eventDictionaryFilteredByTime.Keys.ToArray();
+            XAxisLabels = eventDictionaryFilteredByDay.Keys.ToArray();
 
             // Pull the reader event data from the values in the dictionary and put them into a double[]
-            List<ReaderEvent>[] pullArrayOfEvents = eventDictionaryFilteredByTime.Values.ToArray();
+            List<ReaderEvent>[] pullArrayOfEvents = eventDictionaryFilteredByDay.Values.ToArray();
             List<double> listOfEventsForEachDayOfTheWeek = new List<double>();
             foreach(List<ReaderEvent> reList in pullArrayOfEvents)
             {
@@ -426,6 +447,29 @@ namespace OGE_Reader_Project.Components.Pages
             public string GetEventMachine() => machine;
 
             public string GetEventUniqueID() => devID + machine;
+
+        }
+
+        public class DataAlert
+        {
+
+            public string alertType;
+            public string alertDescription;
+
+            public DataAlert()
+            {
+
+                alertType = "";
+                alertDescription = "";
+
+            }
+            public DataAlert(string newAlertType, string newAlertDescription)
+            {
+
+                alertType = newAlertType;
+                alertDescription = newAlertDescription;
+
+            }
 
         }
 
