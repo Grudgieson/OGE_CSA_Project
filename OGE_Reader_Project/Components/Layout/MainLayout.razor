@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager navManager
 
 <MudThemeProvider Theme="@_theme" IsDarkMode="_isDarkMode" />
 <MudPopoverProvider />
@@ -10,12 +11,13 @@
         <MudImage Src="oge_logo.png" Width="102" Alt="Oklahoma Gas and Electric Logo"></MudImage>
         <MudSpacer />
 
-        <MudButton Class="mr-4" Href="/" Variant.Text>Dashboard</MudButton>
+        <MudButton Class="mr-4" Href="/" Color="Color.Inherit" Variant.Text>Dashboard</MudButton>
 
         <!--
         
         <MudButton Class="mr-4" Href="counter" Variant.Text>Counter</MudButton>
         
+        -->
 
         <MudFileUpload T="IBrowserFile" FilesChanged="FileUploaded">
             <ActivatorContent>
@@ -26,8 +28,6 @@
                 </MudButton>
             </ActivatorContent>
         </MudFileUpload>
-
-        -->
 
         <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
     </MudAppBar>
@@ -74,8 +74,8 @@
     private readonly PaletteLight _lightPalette = new()
     {
         Black = "#110e2d",
-        AppbarText = "#424242",
-        AppbarBackground = "rgba(255,255,255,0.8)",
+        AppbarText = "#92929f",
+        AppbarBackground = "rgba(0,30,55,1)",
         DrawerBackground = "#ffffff",
         GrayLight = "#e8e8e8",
         GrayLighter = "#f9f9f9",
@@ -119,13 +119,12 @@
     <!-- #region -->
 
     // Code that processes file uploads
-    public static string FileName { get; set; } = "";
-    public string ErrorMessage { get; set; } = "";
 
     public async Task FileUploaded(IBrowserFile e)
     {
+
         var browserFile = e;
-        FileName = browserFile.Name;
+        FileStorage.FileName = browserFile.Name;
 
         if (browserFile != null)
         {
@@ -135,21 +134,20 @@
                 
                 // Saving Uploaded file to disk
                 var fileStream = browserFile.OpenReadStream(long.MaxValue);
-                var destinationStream = new FileStream(FileName, FileMode.Create);
+                var destinationStream = new FileStream(FileStorage.FileName, FileMode.Create);
                 await fileStream.CopyToAsync(destinationStream);
                 destinationStream.Close();
 
                 // Close the file stream of the uploaded file
                 fileStream.Close();
 
- 
-
-                this.StateHasChanged();
+                await FileStorage.ProcessFile();
+                navManager.Refresh(true);
 
             }
             catch (Exception exception)
             {
-                ErrorMessage = exception.Message;
+                FileStorage.ErrorMessage = exception.Message;
             }
         }
     }

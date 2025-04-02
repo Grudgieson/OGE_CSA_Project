@@ -2,31 +2,21 @@
 
 <PageTitle>Dashboard</PageTitle>
 
-<MudFileUpload T="IBrowserFile" FilesChanged="FileUploaded">
-    <ActivatorContent>
-        <MudButton Class="mb-4" Variant="Variant.Filled"
-                   Color="Color.Primary"
-                   StartIcon="@Icons.Material.Filled.CloudUpload">
-            Upload Files
-        </MudButton>
-    </ActivatorContent>
-</MudFileUpload>
-
 <MudGrid Spacing="0" Justify="Justify.Center">
     <MudItem xs="6">
         <div Class="ml-20">
 
             <MudText Typo="Typo.h4"Class="mt-8">Most Active User</MudText>
-            <MudText Typo="Typo.subtitle1"Class="">@mostActiveHashID</MudText>
+            <MudText Typo="Typo.subtitle1"Class="">@FileStorage.mostActiveHashID</MudText>
 
             <MudText Typo="Typo.h4"Class="mt-8">Most Active Reader</MudText>
-            <MudText Typo="Typo.subtitle1"Class="">@mostActiveReader</MudText>
+            <MudText Typo="Typo.subtitle1"Class="">@FileStorage.mostActiveReader</MudText>
 
             <MudText Typo="Typo.h4"Class="mt-8">Busiest Day of The Week</MudText>
-            <MudText Typo="Typo.subtitle1"Class="">@busiestDay</MudText>
+            <MudText Typo="Typo.subtitle1"Class="">@FileStorage.busiestDay</MudText>
 
             <MudText Typo="Typo.h4"Class="mt-8">Average Unique Visitors Per Day</MudText>
-            <MudText Typo="Typo.subtitle1"Class="">@averageUniqueVisitorsPerDay</MudText>
+            <MudText Typo="Typo.subtitle1"Class="">@FileStorage.averageUniqueVisitorsPerDay</MudText>
 
         </div>
     </MudItem>
@@ -40,7 +30,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach(var alert in alertsList)
+                @foreach(var alert in FileStorage.alertsList)
                 {
                     <tr>
                         <td>@alert.alertType</td>
@@ -53,8 +43,8 @@
 </MudGrid>
 
 <div class="ml-20">
-    <MudText Typo="Typo.h6"Class="mt-8">Scan Activity Over (@chartFilter)</MudText>
-    <MudChart ChartType="ChartType.Line" ChartSeries="@Series" XAxisLabels="@XAxisLabels" Width="1750px" Height="420px" ChartOptions="@Options" AxisChartOptions="@axisOptions"></MudChart>
+    <MudText Typo="Typo.h6"Class="mt-8">Scan Activity Over (@FileStorage.chartFilter)</MudText>
+    <MudChart ChartType="ChartType.Line" ChartSeries="@FileStorage.Series" XAxisLabels="@FileStorage.XAxisLabels" Width="1750px" Height="420px" ChartOptions="@FileStorage.Options" AxisChartOptions="@FileStorage.axisOptions"></MudChart>
 </div>
 
 <!--
