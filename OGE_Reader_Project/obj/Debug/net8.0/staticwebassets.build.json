@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "r9dpw/HgOXXKYhr10kK/i1ZLPNIAkOw+XGOfbTptCH0=",
+  "Hash": "kcUGm+qVxIguOM9cpqn9mLC2hLnypcBJd/AhYyFNUPE=",
   "Source": "OGE_Reader_Project",
   "BasePath": "_content/OGE_Reader_Project",
   "Mode": "Default",
@@ -55,7 +55,7 @@
       "OriginalItemSpec": "C:\\Users\\Garrison Knapp\\.nuget\\packages\\mudblazor\\8.5.1\\staticwebassets\\MudBlazor.min.js"
     },
     {
-      "Identity": "C:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\favicon.ico",
+      "Identity": "c:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\favicon.ico",
       "SourceId": "OGE_Reader_Project",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\",
@@ -74,7 +74,7 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\oge_logo.png",
+      "Identity": "c:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\oge_logo.png",
       "SourceId": "OGE_Reader_Project",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Garrison Knapp\\Desktop\\OG&E Reader Project\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\",

@@ -24,7 +24,7 @@ public class FileStorage
     // Chart Variables
     public static ChartOptions Options = new ChartOptions();
     public static AxisChartOptions axisOptions = new AxisChartOptions();
-
+    
     public static List<ChartSeries> Series = new List<ChartSeries>();
     public static string[] XAxisLabels = Array.Empty<string>();
 
