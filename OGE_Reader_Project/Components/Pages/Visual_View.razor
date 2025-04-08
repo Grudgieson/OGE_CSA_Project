@@ -1,0 +1,50 @@
+﻿@page "/visual"
+
+<PageTitle>Visual View</PageTitle>
+
+<MudText Typo="Typo.h3" GutterBottom="true">Visual View</MudText>
+
+<MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
+        <thead>
+            <tr>
+                <th>Panel</th>
+                <th>Number of scans By readers</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var reader in FileStorage.eventDictionaryFilteredPanelID)
+            {
+                <tr>
+                    <td>@reader.Key</td>
+                    <td>@reader.Value.Count()</td>
+                </tr>
+            }
+        </tbody>
+</MudSimpleTable>
+
+<MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
+        <thead>
+            <tr>
+                <th>ReaderID</th>
+                <th>Reader Name</th>
+                <th>Reader Events</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var reader in FileStorage.eventDictionary)
+            {
+                <tr>
+                    <td>@reader.Key</td>
+                    <td>@reader.Value[0].GetEventDescription()</td>
+                    <td>@reader.Value.Count()</td>
+                </tr>
+            }
+        </tbody>
+</MudSimpleTable>
+
+@code
+{
+
+    //private static Dictionary<string, 
+
+}

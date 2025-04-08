@@ -14,6 +14,7 @@ public class FileStorage
     public static Dictionary<string, List<ReaderEvent>> eventDictionaryFilteredByTime = new Dictionary<string, List<ReaderEvent>>();
     public static Dictionary<string, List<ReaderEvent>> eventDictionaryFilteredByDay = new Dictionary<string, List<ReaderEvent>>();
     public static Dictionary<string, List<ReaderEvent>> eventDictionaryFilteredHashID = new Dictionary<string, List<ReaderEvent>>();
+    public static Dictionary<string, List<ReaderEvent>> eventDictionaryFilteredPanelID = new Dictionary<string, List<ReaderEvent>>();
 
     // Highlight Variables
     public static string mostActiveHashID = "N/A";
@@ -31,14 +32,14 @@ public class FileStorage
     public static string chartFilter = "";
 
     // Alert System Variables
-    public static IEnumerable<DataAlert> alertsList = new List<DataAlert>()
+    public static IEnumerable<AlertSystem.DataAlert> alertsList = new List<AlertSystem.DataAlert>()
     {
-        new DataAlert("Impossible Movement", "User detecting using two readers at the same time"),
-        new DataAlert("Off Hours Access", "User scanned into this place at 2:00am on 6/23/2024"),
-        new DataAlert("Missed Exit Scan", "User scanned in to this place at this time but didn't scan out"),
-        new DataAlert("Ghost User", "User only scan 2 times in the past time"),
-        new DataAlert("Ghost User", "User only scan 2 times in the past time"),
-        new DataAlert("Ghost User", "User only scan 2 times in the past time"),
+        new AlertSystem.DataAlert("Impossible Movement", "User detecting using two readers at the same time"),
+        new AlertSystem.DataAlert("Off Hours Access", "User scanned into this place at 2:00am on 6/23/2024"),
+        new AlertSystem.DataAlert("Missed Exit Scan", "User scanned in to this place at this time but didn't scan out"),
+        new AlertSystem.DataAlert("Ghost User", "User only scan 2 times in the past time"),
+        new AlertSystem.DataAlert("Ghost User", "User only scan 2 times in the past time"),
+        new AlertSystem.DataAlert("Ghost User", "User only scan 2 times in the past time"),
     };
 
 
@@ -76,6 +77,7 @@ public class FileStorage
         eventDictionaryFilteredByTime = OrganizeDictionByDayOfTheWeek(masterList);
         eventDictionaryFilteredByDay = OrganizeDictionByDay(masterList);
         eventDictionaryFilteredHashID = OrganizeDictionByHashID(masterList);
+        eventDictionaryFilteredPanelID = OrganizeDictionByPanel(masterList);
 
         // Get highlights after all the dictionaries have been organized
         GetMostActiveHashID();
@@ -181,6 +183,30 @@ public class FileStorage
 
             }
             resultDict[userHashID].Add(rawReaderEvent); // Add an event to the respective reader
+
+        }
+
+        return resultDict;
+
+    }
+    public static Dictionary<string, List<ReaderEvent>> OrganizeDictionByPanel(List<ReaderEvent> masterList)
+    {
+
+        Dictionary<string, List<ReaderEvent>> resultDict = new Dictionary<string, List<ReaderEvent>>();
+
+        // Goes through each recorded ReaderEvent in the raw Data list
+        foreach(ReaderEvent rawReaderEvent in masterList)
+        {
+
+            // Get the reader's ID that captured the event and add or create a section in the dictionary accordingly
+            string panelID = rawReaderEvent.GetEventDevID();
+            if(!resultDict.ContainsKey(panelID))
+            {
+
+                resultDict[panelID] = new List<ReaderEvent>(); // Create a entry when an event occured on a unique time is found
+
+            }
+            resultDict[panelID].Add(rawReaderEvent); // Add an event to the respective reader
 
         }
 
@@ -365,29 +391,6 @@ public class FileStorage
         public string GetEventMachine() => machine;
 
         public string GetEventUniqueID() => devID + machine;
-
-    }
-
-    public class DataAlert
-    {
-
-        public string alertType;
-        public string alertDescription;
-
-        public DataAlert()
-        {
-
-            alertType = "";
-            alertDescription = "";
-
-        }
-        public DataAlert(string newAlertType, string newAlertDescription)
-        {
-
-            alertType = newAlertType;
-            alertDescription = newAlertDescription;
-
-        }
 
     }
 

@@ -12,6 +12,7 @@
         <MudSpacer />
 
         <MudButton Class="mr-4" Href="/" Color="Color.Inherit" Variant.Text>Dashboard</MudButton>
+        <MudButton Class="mr-4" Href="/visual" Color="Color.Inherit" Variant.Text>Visual</MudButton>
 
         <!--
         
@@ -19,10 +20,10 @@
         
         -->
 
-        <MudFileUpload T="IBrowserFile" FilesChanged="FileUploaded">
+        <MudFileUpload T="IBrowserFile" Accept=".csv" FilesChanged="FileUploaded">
             <ActivatorContent>
                 <MudButton Class="mr-4" Variant="Variant.Filled"
-                        Color="Color.Primary"
+                        Color="Color.Info"
                         StartIcon="@Icons.Material.Filled.CloudUpload">
                     Upload
                 </MudButton>
@@ -46,7 +47,7 @@
 
 @code {
     private bool _drawerOpen = true;
-    private bool _isDarkMode = true;
+    private static bool _isDarkMode = true;
     private MudTheme? _theme = null;
 
     protected override void OnInitialized()
@@ -74,8 +75,8 @@
     private readonly PaletteLight _lightPalette = new()
     {
         Black = "#110e2d",
-        AppbarText = "#92929f",
-        AppbarBackground = "rgba(0,30,55,1)",
+        AppbarText = "#F3F8FF",
+        AppbarBackground = "#061D37",
         DrawerBackground = "#ffffff",
         GrayLight = "#e8e8e8",
         GrayLighter = "#f9f9f9",
@@ -87,8 +88,8 @@
         Surface = "#1e1e2d",
         Background = "#1a1a27",
         BackgroundGray = "#151521",
-        AppbarText = "#92929f",
-        AppbarBackground = "rgba(26,26,39,0.8)",
+        AppbarText = "#F3F8FF",
+        AppbarBackground = "rgba(26,26,39,1)",
         DrawerBackground = "#1a1a27",
         ActionDefault = "#74718e",
         ActionDisabled = "#9999994d",
