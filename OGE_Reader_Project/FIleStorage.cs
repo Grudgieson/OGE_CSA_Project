@@ -1,4 +1,5 @@
 using MudBlazor;
+using System.Linq;
 
 public class FileStorage
 {
@@ -6,6 +7,7 @@ public class FileStorage
     public static string FileName { get; set; } = "";
     public static string ErrorMessage { get; set; } = "";
 
+    List<ReaderEvent> theMasterList = new List<ReaderEvent>();
     public static int masterListCount = 0;
 
 
@@ -48,7 +50,8 @@ public class FileStorage
 
         // Create a stream reader that reads from the stream when a file is uploaded & make an masterList to keep track
         var sr = new StreamReader(FileName);
-        var masterList = new List<ReaderEvent>();
+        List<ReaderEvent> masterList = new List<ReaderEvent>();
+        theMasterList = masterList;
 
         // Check every line of the stream in StreamReader
         string? line = sr.ReadLine();
@@ -281,6 +284,13 @@ public class FileStorage
         busiestDay = currentBusiestDay;
         
     }
+    public static void GetBusiestDay()
+    {
+
+        //var result = from reader in eventDictionaryFilteredByTime.Values
+        //    where 
+        
+    }
     public static void GetAverageUniqueVisitorsPerDay()
     {
 
@@ -390,7 +400,7 @@ public class FileStorage
         public string GetEventDevID() => devID;
         public string GetEventMachine() => machine;
 
-        public string GetEventUniqueID() => devID + machine;
+        public string GetEventUniqueID() => $"{devID}-{machine}";
 
     }
 
