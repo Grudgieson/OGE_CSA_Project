@@ -7,7 +7,7 @@ public class FileStorage
     public static string FileName { get; set; } = "";
     public static string ErrorMessage { get; set; } = "";
 
-    List<ReaderEvent> theMasterList = new List<ReaderEvent>();
+    public static List<ReaderEvent> theMasterList = new List<ReaderEvent>();
     public static int masterListCount = 0;
 
 
@@ -19,9 +19,12 @@ public class FileStorage
     public static Dictionary<string, List<ReaderEvent>> eventDictionaryFilteredPanelID = new Dictionary<string, List<ReaderEvent>>();
 
     // Highlight Variables
-    public static string mostActiveHashID = "N/A";
-    public static string mostActiveReader = "N/A";
-    public static string busiestDay = "N/A";
+    public static string mostActiveHashID = "(Upload a file)";
+    public static string mostActiveHashIDScans = "0";
+    public static string mostActiveReader = "(Upload a file)";
+    public static string mostActiveReaderEventCount = "0";
+    public static string busiestDay = "(Upload a file)";
+    public static string busiestDayAverageScans = "0";
     public static int averageUniqueVisitorsPerDay = 0;
 
     // Chart Variables
@@ -237,6 +240,7 @@ public class FileStorage
         }
 
         mostActiveHashID = currentHighestActiveID;
+        mostActiveHashIDScans = eventDictionaryFilteredHashID[mostActiveHashID].Count().ToString();
         
     }
     public static void GetMostActiveReader()
@@ -260,10 +264,45 @@ public class FileStorage
 
         // Returns the reader description of the mostActiveReader
         mostActiveReader = eventDictionary[currentHighestActiveReader][0].GetEventDescription();
+        mostActiveReaderEventCount = eventDictionary[currentHighestActiveReader].Count().ToString();
         
     }
     public static void GetBusiestDay()
     {
+
+        // Dictionary for keeping track of the number of dayOfWeekOccurrences
+        Dictionary<string, int> dayOfWeekOccurrences = new Dictionary<string, int>();
+        DateTime lastDateChecked = DateTime.MinValue;
+
+        foreach(var entry in theMasterList)
+        {
+
+            // Checks if a new day is detected
+            if(entry.GetEventTime().Date != lastDateChecked.Date)
+            {
+
+                // Set the last date checked to the new current date
+                lastDateChecked = entry.GetEventTime().Date;
+
+                // If the day of the week of the date being checked has already been seen add 1 to the number of occurrences
+                if(dayOfWeekOccurrences.ContainsKey(entry.GetEventTime().Date.DayOfWeek.ToString()))
+                {
+
+                    dayOfWeekOccurrences[entry.GetEventTime().Date.DayOfWeek.ToString()]++;
+
+                }
+                else
+                {
+
+                    // other wise add a new day of the week to the occurrences dictionary
+                    dayOfWeekOccurrences.Add(entry.GetEventTime().Date.DayOfWeek.ToString(), 1);
+
+                }
+
+            }
+
+        }
+
 
         // Sets the currentBusiestDay to the first ID in the dictionary
         string currentBusiestDay = eventDictionaryFilteredByTime.Keys.First();
@@ -272,7 +311,7 @@ public class FileStorage
         foreach(var day in eventDictionaryFilteredByTime)
         {
 
-            if(day.Value.Count >= eventDictionaryFilteredByTime[currentBusiestDay].Count)
+            if(day.Value.Count/dayOfWeekOccurrences[day.Key] >= eventDictionaryFilteredByTime[currentBusiestDay].Count/dayOfWeekOccurrences[currentBusiestDay])
             {
 
                 currentBusiestDay = day.Key;
@@ -282,13 +321,7 @@ public class FileStorage
         }
 
         busiestDay = currentBusiestDay;
-        
-    }
-    public static void GetBusiestDay()
-    {
-
-        //var result = from reader in eventDictionaryFilteredByTime.Values
-        //    where 
+        busiestDayAverageScans = (eventDictionaryFilteredByTime[busiestDay].Count/dayOfWeekOccurrences[busiestDay]).ToString();
         
     }
     public static void GetAverageUniqueVisitorsPerDay()
