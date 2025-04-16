@@ -37,15 +37,7 @@ public class FileStorage
     public static string chartFilter = "";
 
     // Alert System Variables
-    public static IEnumerable<AlertSystem.DataAlert> alertsList = new List<AlertSystem.DataAlert>()
-    {
-        new AlertSystem.DataAlert("Impossible Movement", "User detecting using two readers at the same time"),
-        new AlertSystem.DataAlert("Off Hours Access", "User scanned into this place at 2:00am on 6/23/2024"),
-        new AlertSystem.DataAlert("Missed Exit Scan", "User scanned in to this place at this time but didn't scan out"),
-        new AlertSystem.DataAlert("Ghost User", "User only scan 2 times in the past time"),
-        new AlertSystem.DataAlert("Ghost User", "User only scan 2 times in the past time"),
-        new AlertSystem.DataAlert("Ghost User", "User only scan 2 times in the past time"),
-    };
+    public static IEnumerable<AlertSystem.DataAlert> alertsList = new List<AlertSystem.DataAlert>();
 
 
     public static async Task ProcessFile()
@@ -93,6 +85,10 @@ public class FileStorage
 
         // Get Data for graph
         GetChartDataForDashboard();
+
+        // Scan for Anomolies
+        AlertSystem.ScanForAnomoly();
+        alertsList = AlertSystem.masterAlertList;
 
         // Close the file stream of the file
         sr.Close();
