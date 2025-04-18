@@ -13,10 +13,13 @@ public class FileStorage
 
     // Dictionary of ReaderEvents that uses the Unique ID as a key
     public static Dictionary<string, List<ReaderEvent>> eventDictionary = new Dictionary<string, List<ReaderEvent>>();
+
+
     public static Dictionary<string, List<ReaderEvent>> eventDictionaryFilteredByTime = new Dictionary<string, List<ReaderEvent>>();
     public static Dictionary<string, List<ReaderEvent>> eventDictionaryFilteredByDay = new Dictionary<string, List<ReaderEvent>>();
     public static Dictionary<string, List<ReaderEvent>> eventDictionaryFilteredHashID = new Dictionary<string, List<ReaderEvent>>();
     public static Dictionary<string, List<ReaderEvent>> eventDictionaryFilteredPanelID = new Dictionary<string, List<ReaderEvent>>();
+
 
     // Highlight Variables
     public static string mostActiveHashID = "(Upload a file)";
@@ -38,7 +41,9 @@ public class FileStorage
 
     // Alert System Variables
     public static IEnumerable<AlertSystem.DataAlert> alertsList = new List<AlertSystem.DataAlert>();
+    public static Dictionary<string, int> duplicateEntries = new Dictionary<string, int>(); // Contains the readers (unique ID for a key) and the number of duplicate entries removed caused by that reader
 
+    public static int test = 0;
 
     public static async Task ProcessFile()
     {
@@ -48,6 +53,9 @@ public class FileStorage
         List<ReaderEvent> masterList = new List<ReaderEvent>();
         theMasterList = masterList;
 
+        // The holds the most recent line read to compare the next one for a possible duplicate
+        string[] previousReadEntry = ["", "", "", "", "", ""];
+
         // Check every line of the stream in StreamReader
         string? line = sr.ReadLine();
         while((line = sr.ReadLine()) != null) // Until there is no remaining lines left
@@ -56,15 +64,52 @@ public class FileStorage
             // Break each line into an array with Reader Data
             string[] data = line.Split(",");
 
-            // Create a new Reader Event using the string array of the current line
-            masterList.Add(new ReaderEvent(
-                data[0],
-                data[1],
-                data[2],
-                data[3],
-                data[4],
-                data[5]
-            ));
+            // Checks if the new line is a duplicate of the previous line
+            if(data[0] == previousReadEntry[0]
+            && data[1] == previousReadEntry[1]
+            && data[2] == previousReadEntry[2]
+            && data[3] == previousReadEntry[3]
+            && data[4] == previousReadEntry[4]
+            && data[5] == previousReadEntry[5])
+            {
+
+                test++;
+
+                // Add the reader to the duplicate entries dictionary with 1 duplicate entry
+                if(!duplicateEntries.ContainsKey($"{data[4]}-{data[5]}"))
+                {
+
+                    duplicateEntries[$"{data[4]}-{data[5]}"] = 1;
+
+                }
+                else
+                {
+
+                    // Add one to a reader's duplicates in the duplicate entry
+                    duplicateEntries[$"{data[4]}-{data[5]}"]++;
+
+                }
+
+            }
+            else
+            {
+
+                // Create a new Reader Event using the string array of the current line
+                masterList.Add(new ReaderEvent(
+                    data[0], // DateTime
+                    data[1], // Location
+                    data[2], // Description
+                    data[3], // HashID
+                    data[4], // DevID
+                    data[5]  // Machine
+                ));
+
+                previousReadEntry = data;
+                Console.WriteLine(previousReadEntry);
+
+            }
+
+            
 
         }
 
@@ -430,6 +475,24 @@ public class FileStorage
         public string GetEventMachine() => machine;
 
         public string GetEventUniqueID() => $"{devID}-{machine}";
+
+        public override bool Equals(object obj)
+        {
+            
+            if(time == ((ReaderEvent)obj).time && location == ((ReaderEvent)obj).location && description == ((ReaderEvent)obj).description && hashID == ((ReaderEvent)obj).hashID && devID == ((ReaderEvent)obj).devID && machine == ((ReaderEvent)obj).machine)
+            {
+
+                return true;
+
+            }
+            else
+            {
+
+                return false;
+
+            }
+
+        }
 
     }
 

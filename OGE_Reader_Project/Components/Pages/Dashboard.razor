@@ -2,6 +2,27 @@
 
 <PageTitle>Dashboard</PageTitle>
 
+<MudText>@FileStorage.test</MudText>
+<h1>MasterList count = @FileStorage.masterListCount</h1>
+
+<MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
+        <thead>
+            <tr>
+                <th>ReaderID</th>
+                <th>Reader Duplicate Events</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var entry in FileStorage.duplicateEntries)
+            {
+                <tr>
+                    <td>@entry.Key</td>
+                    <td>@entry.Value</td>
+                </tr>
+            }
+        </tbody>
+</MudSimpleTable>
+
 <MudGrid Spacing="0" Justify="Justify.Center">
     <MudItem xs="6">
         <div Class="ml-20">
@@ -51,10 +72,8 @@
     <MudChart ChartType="ChartType.Line" ChartSeries="@FileStorage.Series" XAxisLabels="@FileStorage.XAxisLabels" Width="1750px" Height="420px" ChartOptions="@FileStorage.Options" AxisChartOptions="@FileStorage.axisOptions"></MudChart>
 </div>
 
+
 <!--
-
-    <h1>MasterList count = @masterListCount</h1>
-
     <MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
         <thead>
             <tr>

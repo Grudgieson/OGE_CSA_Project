@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using MudBlazor;
 
-public class AlertSystem
+public static class AlertSystem
 {
 
     // Holds every alert detected by the system
     public static List<DataAlert> masterAlertList = new List<DataAlert>();
 
-    List<DataAlert> anomolyList = new List<DataAlert>();
+    static List<DataAlert> anomolyList = new List<DataAlert>();
 
     
     // Calls all the methods that scan for anomolies
@@ -33,14 +33,6 @@ public class AlertSystem
             }
 
         }
-
-    }
-    static void DuplicateScanActivity()
-    {
-
-        
-        
-            
 
     }
     static void OffHoursScan()
