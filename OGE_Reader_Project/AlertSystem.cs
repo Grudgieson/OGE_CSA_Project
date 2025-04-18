@@ -15,7 +15,7 @@ public class AlertSystem
     {
 
         LowUserActivity();
-        OffHoursScan();
+        
 
     }
     static void LowUserActivity()
@@ -35,16 +35,24 @@ public class AlertSystem
         }
 
     }
+    static void DuplicateScanActivity()
+    {
+
+        
+        
+            
+
+    }
     static void OffHoursScan()
     {
 
         foreach(var reader in FileStorage.theMasterList)
         {
 
-            if(reader.GetEventTime().TimeOfDay <= new TimeSpan(0, 0, 0) && reader.GetEventTime().TimeOfDay >= new TimeSpan(6, 0, 0))
+            if(reader.GetEventTime().TimeOfDay >= new TimeSpan(0, 0, 0) && reader.GetEventTime().TimeOfDay <= new TimeSpan(6, 0, 0))
             {
 
-                masterAlertList.Add(new DataAlert("Off Hours Scan", $"{reader.GetEventHashID} scanned in at {reader.GetEventTime().TimeOfDay} on {reader.GetEventTime().Date}"));
+                masterAlertList.Add(new DataAlert("Off Hours Scan", $"{reader.GetEventHashID()} scanned in at {reader.GetEventTime():h:mm tt} on {reader.GetEventTime().Date:d MMM yyyy}"));
 
             }
 
