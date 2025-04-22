@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OGE_Reader_Project")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8671c8838b66c292c6e9a198f31bb9bc88917c93")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+35c82ae479898647558bb613f2adedd99404f8c1")]
 [assembly: System.Reflection.AssemblyProductAttribute("OGE_Reader_Project")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OGE_Reader_Project")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
