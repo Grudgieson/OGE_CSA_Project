@@ -26,7 +26,35 @@
     </MudItem>
 
     <MudItem xs="6">
-        <MudSimpleTable Class="mb-4" Style="width:800px" FixedHeader="true">
+        <MudTable Class="mb-4" Style="width:800px" Items="@AlertSystem.masterAlertList" FixedHeader="true">
+            <HeaderContent>
+                <MudTh>Alert</MudTh>
+                <MudTh>Description</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Alert">@context.alertType</MudTd>
+                <MudTd DataLabel="Description">@context.alertDescription</MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager PageSizeOptions="new int[] { 10, 5}" HideRowsPerPage="false"/>
+            </PagerContent>
+        </MudTable>
+    </MudItem>
+</MudGrid>
+
+<div class="ml-20">
+    <MudText Typo="Typo.h6"Class="mt-8">Scan Activity Over (@FileStorage.chartFilter)</MudText>
+    <MudChart ChartType="ChartType.Line" ChartSeries="@FileStorage.Series" XAxisLabels="@FileStorage.XAxisLabels" Width="1750px" Height="420px" ChartOptions="@FileStorage.Options" AxisChartOptions="@FileStorage.axisOptions"></MudChart>
+</div>
+
+
+
+<!--
+
+<MudText>@FileStorage.test</MudText>
+<h1>MasterList count = @FileStorage.masterListCount</h1>
+
+<MudSimpleTable Class="mb-4" Style="width:800px" FixedHeader="true">
             <thead>
                 <tr>
                     <th>Alert</th>
@@ -43,32 +71,6 @@
                 }
             </tbody>
         </MudSimpleTable>
-    </MudItem>
-</MudGrid>
-
-<div class="ml-20">
-    <MudText Typo="Typo.h6"Class="mt-8">Scan Activity Over (@FileStorage.chartFilter)</MudText>
-    <MudChart ChartType="ChartType.Line" ChartSeries="@FileStorage.Series" XAxisLabels="@FileStorage.XAxisLabels" Width="1750px" Height="420px" ChartOptions="@FileStorage.Options" AxisChartOptions="@FileStorage.axisOptions"></MudChart>
-</div>
-
-<MudTable Items="@FileStorage.alertsList" FixedHeader="true">
-    <HeaderContent>
-        <MudTh>Alert</MudTh>
-        <MudTh>Description</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Alert">@FileStorage.alertsList.alert</MudTd>
-        <MudTd DataLabel="Alert">@FileStorage.alertsList.alertDescription</MudTd>
-    </RowTemplate>
-    <PagerContent>
-        <MudTablePager PageSizeOptions="new int[]{50, 100}" />
-    </PagerContent>
-</MudTable>
-
-<!--
-
-<MudText>@FileStorage.test</MudText>
-<h1>MasterList count = @FileStorage.masterListCount</h1>
 
 <MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
         <thead>

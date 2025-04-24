@@ -52,7 +52,6 @@ public static class AlertSystem
 
     }
 
-
     public class DataAlert
     {
 

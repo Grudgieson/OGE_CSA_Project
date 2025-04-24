@@ -54,7 +54,7 @@ public class FileStorage
         theMasterList = masterList;
 
         // The holds the most recent line read to compare the next one for a possible duplicate
-        string[] previousReadEntry = ["", "", "", "", "", ""];
+        string previousReadEntry = "";
 
         // Check every line of the stream in StreamReader
         string? line = sr.ReadLine();
@@ -64,18 +64,9 @@ public class FileStorage
             // Break each line into an array with Reader Data
             string[] data = line.Split(",");
 
-            // Checks if the new line is a duplicate of the previous line
-            if(data[0] == previousReadEntry[0]
-            && data[1] == previousReadEntry[1]
-            && data[2] == previousReadEntry[2]
-            && data[3] == previousReadEntry[3]
-            && data[4] == previousReadEntry[4]
-            && data[5] == previousReadEntry[5])
+            if(line == previousReadEntry)
             {
 
-                test++;
-
-                // Add the reader to the duplicate entries dictionary with 1 duplicate entry
                 if(!duplicateEntries.ContainsKey($"{data[4]}-{data[5]}"))
                 {
 
@@ -89,7 +80,7 @@ public class FileStorage
                     duplicateEntries[$"{data[4]}-{data[5]}"]++;
 
                 }
-
+                
             }
             else
             {
@@ -104,12 +95,10 @@ public class FileStorage
                     data[5]  // Machine
                 ));
 
-                previousReadEntry = data;
+                previousReadEntry = line;
                 Console.WriteLine(previousReadEntry);
 
             }
-
-            
 
         }
 
