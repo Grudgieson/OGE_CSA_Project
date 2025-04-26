@@ -1,0 +1,123 @@
+﻿@page "/data"
+
+<PageTitle>Development Data View</PageTitle>
+
+<MudText>@FileStorage.test</MudText>
+<h1>MasterList count = @FileStorage.masterListCount</h1>
+
+<MudText Typo="Typo.h4">Alerts System Table</MudText>
+<MudSimpleTable Class="mb-4" Style="width:800px" FixedHeader="true">
+            <thead>
+                <tr>
+                    <th>Alert</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var alert in FileStorage.alertsList)
+                {
+                    <tr>
+                        <td>@alert.alertType</td>
+                        <td>@alert.alertDescription</td>
+                    </tr>
+                }
+            </tbody>
+</MudSimpleTable>
+
+<MudText Typo="Typo.h4">Reader Duplicate Entries Table</MudText>
+<MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
+        <thead>
+            <tr>
+                <th>ReaderID</th>
+                <th>Reader Duplicate Events</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var entry in FileStorage.duplicateEntries)
+            {
+                <tr>
+                    <td>@entry.Key</td>
+                    <td>@entry.Value</td>
+                </tr>
+            }
+        </tbody>
+</MudSimpleTable>
+
+<MudText Typo="Typo.h4">MAIN Reader Events Data Table</MudText>
+    <MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
+        <thead>
+            <tr>
+                <th>ReaderID</th>
+                <th>Reader Name</th>
+                <th>Reader Events</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var reader in FileStorage.eventDictionary)
+            {
+                <tr>
+                    <td>@reader.Key</td>
+                    <td>@reader.Value[0].GetEventDescription()</td>
+                    <td>@reader.Value.Count()</td>
+                </tr>
+            }
+        </tbody>
+    </MudSimpleTable>
+
+<MudText Typo="Typo.h4">Dictionary Filtered By Date</MudText>
+    <MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Number of Events</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var reader in FileStorage.eventDictionaryFilteredByDay)
+            {
+                <tr>
+                    <td>@reader.Key</td>
+                    <td>@reader.Value.Count()</td>
+                </tr>
+            }
+        </tbody>
+    </MudSimpleTable>
+
+<MudText Typo="Typo.h4">Dictionary Filtered By Day of the Week</MudText>
+    <MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
+        <thead>
+            <tr>
+                <th>Day of The Week</th>
+                <th>Number of Events</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var reader in FileStorage.eventDictionaryFilteredByTime)
+            {
+                <tr>
+                    <td>@reader.Key</td>
+                    <td>@reader.Value.Count()</td>
+                </tr>
+            }
+        </tbody>
+    </MudSimpleTable>
+
+<MudText Typo="Typo.h4">Dictionary Filtered By Hash</MudText>
+    <MudSimpleTable Class="mb-4" Style="overflow-x: auto;">
+        <thead>
+            <tr>
+                <th>UserID</th>
+                <th>Events Invoked By User</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var reader in FileStorage.eventDictionaryFilteredHashID)
+            {
+                <tr>
+                    <td>@reader.Key</td>
+                    <td>@reader.Value.Count()</td>
+                </tr>
+            }
+        </tbody>
+</MudSimpleTable>
+

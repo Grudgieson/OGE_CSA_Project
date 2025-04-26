@@ -35,6 +35,29 @@ public static class AlertSystem
         }
 
     }
+    public static void CheckForDuplicateAlert(Dictionary<string, int> duplicateDictionary, int numberOfDupsForAlert)
+    {
+
+        foreach(var dup in duplicateDictionary)
+        {
+
+            if(dup.Value >= numberOfDupsForAlert)
+            {
+
+                masterAlertList.Add(new DataAlert("High Number of Duplicate Scans", $"Reader {dup.Key} has reported {dup.Value} exact duplicate entries."));
+
+
+            }
+
+        }
+
+    }
+    static void ActivitySpike()
+    {
+
+        
+
+    }
     static void OffHoursScan()
     {
 

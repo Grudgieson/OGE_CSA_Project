@@ -122,6 +122,7 @@ public class FileStorage
 
         // Scan for Anomolies
         AlertSystem.ScanForAnomoly();
+        AlertSystem.CheckForDuplicateAlert(duplicateEntries, 50);
         alertsList = AlertSystem.masterAlertList;
 
         // Close the file stream of the file
