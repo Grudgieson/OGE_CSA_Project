@@ -48,6 +48,10 @@ public class FileStorage
     public static async Task ProcessFile()
     {
 
+        // Clears the alerts when a new file is uploaded
+        AlertSystem.masterAlertList = new List<AlertSystem.DataAlert>();
+        duplicateEntries = new Dictionary<string, int>();
+
         // Create a stream reader that reads from the stream when a file is uploaded & make an masterList to keep track
         var sr = new StreamReader(FileName);
         List<ReaderEvent> masterList = new List<ReaderEvent>();
@@ -418,7 +422,9 @@ public class FileStorage
         }
 
         // Add a new chart series for the chart with the data obtained from above
+        Series = new List<ChartSeries>();
         Series.Add(new ChartSeries { Name = "Number of Scans", Data = listOfEventsForEachDayOfTheWeek.ToArray() } );
+        
 
     }
 
