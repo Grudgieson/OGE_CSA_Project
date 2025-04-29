@@ -31,7 +31,7 @@ public class FileStorage
     public static int averageUniqueVisitorsPerDay = 0;
 
     // Chart Variables
-    public static ChartOptions Options = new ChartOptions();
+    public static ChartOptions Options = new ChartOptions() {ChartPalette = ["#CD3825"]};
     public static AxisChartOptions axisOptions = new AxisChartOptions();
     
     public static List<ChartSeries> Series = new List<ChartSeries>();
@@ -100,7 +100,6 @@ public class FileStorage
                 ));
 
                 previousReadEntry = line;
-                Console.WriteLine(previousReadEntry);
 
             }
 
