@@ -2,7 +2,7 @@
 
 <PageTitle>Dashboard</PageTitle>
 
-<MudGrid Spacing="0" Justify="Justify.Center">
+<MudGrid Spacing="0" Justify="Justify.Center" style="display: flex;">
     <MudItem xs="6">
         <div Class="ml-20">
 
@@ -44,7 +44,11 @@
 
 <div class="ml-20">
     <MudText Typo="Typo.h6"Class="mt-8">Scan Activity Over (@FileStorage.chartFilter)</MudText>
-    <MudChart ChartType="ChartType.Line" ChartSeries="@FileStorage.Series" XAxisLabels="@FileStorage.XAxisLabels" Width="1750px" Height="420px" ChartOptions="@FileStorage.Options" AxisChartOptions="@FileStorage.axisOptions"></MudChart>
+
+    <div style="display: flex;">
+        <MudChart ChartType="ChartType.Line" ChartSeries="@FileStorage.Series" XAxisLabels="@FileStorage.XAxisLabels" Width="1750px" Height="420px" ChartOptions="@FileStorage.Options" AxisChartOptions="@FileStorage.axisOptions"></MudChart>
+    </div>
+
 </div>
 
 
