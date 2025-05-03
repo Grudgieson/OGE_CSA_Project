@@ -26,17 +26,32 @@
     </MudItem>
 
     <MudItem xs="6">
-        <MudTable Class="mb-4" Style="width:800px" Items="@AlertSystem.masterAlertList" FixedHeader="true">
+        <MudTable Class="mb-4" Style="width:800px" Items="@AlertSystem.masterAlertList" FixedHeader="true" Dense="true" Filter="new Func<AlertSystem.DataAlert,bool>(SearchFilterFunc)">
+            <ToolBarContent>
+                <MudSpacer />
+                <MudTextField @bind-Value="tableSearchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <ColGroup>
+                <col style="overflow-wrap; width: 20%;" />
+                <col style="overflow-wrap;" />
+                <col style="width: 15%;" />
+            </ColGroup>
             <HeaderContent>
                 <MudTh>Alert</MudTh>
                 <MudTh>Description</MudTh>
+                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Descending" SortBy="new Func<AlertSystem.DataAlert, object>(x=>x.alertSeverity)"></MudTableSortLabel>Severity</MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Alert">@context.alertType</MudTd>
                 <MudTd DataLabel="Description">@context.alertDescription</MudTd>
+                <MudTd DataLabel="Severity"><MudAlert Severity="@context.alertSeverity" ContentAlignment="HorizontalAlignment.Center"></MudAlert></MudTd>
             </RowTemplate>
             <PagerContent>
-                <MudTablePager PageSizeOptions="new int[] { 10, 5}" HideRowsPerPage="false"/>
+                <MudTablePager
+                    PageSizeOptions="new int[] {7}"
+                    HideRowsPerPage="true"
+                    HidePageNumber="true"
+                    />
             </PagerContent>
         </MudTable>
     </MudItem>
@@ -51,7 +66,27 @@
 
 </div>
 
+@code
+{
 
+private string tableSearchString = "";
+
+// Takes the string typed into the search bar of the alert system table and then compares it to the data to find a match or similar match
+private bool SearchFilterFunc(AlertSystem.DataAlert alertSearch) => FilterFunc(alertSearch, tableSearchString);
+private bool FilterFunc(AlertSystem.DataAlert alertSearching, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (alertSearching.alertType.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (alertSearching.alertDescription.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if ($"{alertSearching.alertType} {alertSearching.alertDescription}".Contains(searchString))
+            return true;
+        return false;
+    }
+
+}
 
 <!--
 

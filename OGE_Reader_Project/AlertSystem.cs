@@ -28,7 +28,7 @@ public static class AlertSystem
             if(entry.Value.Count() <= 9)
             {
 
-                masterAlertList.Add(new DataAlert("Low User Activity", $"User {entry.Key} has a total of {entry.Value.Count()} Scans"));
+                masterAlertList.Add(new DataAlert("Low User Activity", $"User {entry.Key} has a total of {entry.Value.Count()} Scans", Severity.Info));
 
             }
 
@@ -44,7 +44,7 @@ public static class AlertSystem
             if(dup.Value >= numberOfDupsForAlert)
             {
 
-                masterAlertList.Add(new DataAlert("High Number of Duplicate Scans", $"Reader {dup.Key} has reported {dup.Value} exact duplicate entries."));
+                masterAlertList.Add(new DataAlert("High Number Duplicates", $"Reader {dup.Key} has reported {dup.Value} exact duplicate scan entries.", Severity.Warning));
 
 
             }
@@ -67,7 +67,7 @@ public static class AlertSystem
             if(reader.GetEventTime().TimeOfDay >= new TimeSpan(0, 0, 0) && reader.GetEventTime().TimeOfDay <= new TimeSpan(6, 0, 0))
             {
 
-                masterAlertList.Add(new DataAlert("Off Hours Scan", $"{reader.GetEventHashID()} scanned in at {reader.GetEventTime():h:mm tt} on {reader.GetEventTime().Date:d MMM yyyy}"));
+                masterAlertList.Add(new DataAlert("Off Hours Scan", $"{reader.GetEventHashID()} scanned in at {reader.GetEventTime():h:mm tt} on {reader.GetEventTime().Date:d MMM yyyy}", Severity.Info));
 
             }
 
@@ -80,19 +80,22 @@ public static class AlertSystem
 
         public string alertType;
         public string alertDescription;
+        public Severity alertSeverity;
 
         public DataAlert()
         {
 
             alertType = "";
             alertDescription = "";
+            alertSeverity = 0;
 
         }
-        public DataAlert(string newAlertType, string newAlertDescription)
+        public DataAlert(string newAlertType, string newAlertDescription, Severity newAlertSeverity)
         {
 
             alertType = newAlertType;
             alertDescription = newAlertDescription;
+            alertSeverity = newAlertSeverity;
 
         }
 
