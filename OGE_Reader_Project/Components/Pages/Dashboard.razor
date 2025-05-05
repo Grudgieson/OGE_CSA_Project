@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject IDialogService DialogService
 
 <PageTitle>Dashboard</PageTitle>
 
@@ -28,8 +29,9 @@
     <MudItem xs="6">
         <MudTable Class="mb-4" Style="width:800px" Items="@AlertSystem.masterAlertList" FixedHeader="true" Dense="true" Filter="new Func<AlertSystem.DataAlert,bool>(SearchFilterFunc)">
             <ToolBarContent>
-                <MudSpacer />
                 <MudTextField @bind-Value="tableSearchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                <MudSpacer />
+                <MudIconButton Icon="@Icons.Material.Filled.Settings" aria-label="Alert System Settings" OnClick="OpenDialogAsync"></MudIconButton>
             </ToolBarContent>
             <ColGroup>
                 <col style="overflow-wrap; width: 20%;" />
@@ -68,12 +70,24 @@
 
 @code
 {
+    private async Task OpenDialogAsync()
+    {
+        var dialog = await DialogService.ShowAsync<Settings_Dialog>("Options Dialog");
+        var result = await dialog.Result;
 
-private string tableSearchString = "";
+        if(!result.Canceled)
+        {
 
-// Takes the string typed into the search bar of the alert system table and then compares it to the data to find a match or similar match
-private bool SearchFilterFunc(AlertSystem.DataAlert alertSearch) => FilterFunc(alertSearch, tableSearchString);
-private bool FilterFunc(AlertSystem.DataAlert alertSearching, string searchString)
+            FileStorage.GetAlerts();
+
+        }
+    }
+
+    private string tableSearchString = "";
+
+    // Takes the string typed into the search bar of the alert system table and then compares it to the data to find a match or similar match
+    private bool SearchFilterFunc(AlertSystem.DataAlert alertSearch) => FilterFunc(alertSearch, tableSearchString);
+    private bool FilterFunc(AlertSystem.DataAlert alertSearching, string searchString)
     {
         if (string.IsNullOrWhiteSpace(searchString))
             return true;

@@ -124,9 +124,7 @@ public class FileStorage
         GetChartDataForDashboard();
 
         // Scan for Anomolies
-        AlertSystem.ScanForAnomoly();
-        AlertSystem.CheckForDuplicateAlert(duplicateEntries, 50);
-        alertsList = AlertSystem.masterAlertList;
+        GetAlerts();
 
         // Close the file stream of the file
         sr.Close();
@@ -397,7 +395,16 @@ public class FileStorage
         averageUniqueVisitorsPerDay = totalUniqueHashIDOverAllDays/totalUniqueHashIDForEachDayList.Count;
         
     }
-    
+
+    public static void GetAlerts()
+    {
+
+        AlertSystem.ScanForAnomoly();
+        AlertSystem.CheckForDuplicateAlert(duplicateEntries);
+        alertsList = AlertSystem.masterAlertList;
+
+    }
+
     public static void GetChartDataForDashboard()
     {
 

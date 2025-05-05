@@ -4,6 +4,11 @@ using MudBlazor;
 public static class AlertSystem
 {
 
+    // Adjustable Threashold
+    public static int lowUserActivityThreashold = 9;
+    public static int duplicateThreashold = 50;
+
+
     // Holds every alert detected by the system
     public static List<DataAlert> masterAlertList = new List<DataAlert>();
 
@@ -14,8 +19,8 @@ public static class AlertSystem
     public static void ScanForAnomoly()
     {
 
+        masterAlertList = new List<DataAlert>();
         LowUserActivity();
-        
 
     }
     static void LowUserActivity()
@@ -25,7 +30,7 @@ public static class AlertSystem
         foreach(var entry in FileStorage.eventDictionaryFilteredHashID)
         {
 
-            if(entry.Value.Count() <= 9)
+            if(entry.Value.Count() <= lowUserActivityThreashold)
             {
 
                 masterAlertList.Add(new DataAlert("Low User Activity", $"User {entry.Key} has a total of {entry.Value.Count()} Scans", Severity.Info));
@@ -35,13 +40,13 @@ public static class AlertSystem
         }
 
     }
-    public static void CheckForDuplicateAlert(Dictionary<string, int> duplicateDictionary, int numberOfDupsForAlert)
+    public static void CheckForDuplicateAlert(Dictionary<string, int> duplicateDictionary)
     {
 
         foreach(var dup in duplicateDictionary)
         {
 
-            if(dup.Value >= numberOfDupsForAlert)
+            if(dup.Value >= duplicateThreashold)
             {
 
                 masterAlertList.Add(new DataAlert("High Number Duplicates", $"Reader {dup.Key} has reported {dup.Value} exact duplicate scan entries.", Severity.Warning));

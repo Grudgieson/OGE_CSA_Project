@@ -1,0 +1,27 @@
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h5">Alert System Settings</MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudNumericField @bind-Value="AlertSystem.duplicateThreashold" Label="Duplicate Threashold" Variant="Variant.Outlined" />
+        <MudNumericField @bind-Value="AlertSystem.lowUserActivityThreashold" Label="Low Activity Threashold" Variant="Variant.Outlined" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Default" OnClick="Apply">Apply</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+
+    [CascadingParameter]
+    private IMudDialogInstance settingsDialog { get; set; }
+    
+    private void Apply()
+    {
+    
+        settingsDialog.Close(DialogResult.Ok(true));
+        
+    }
+    
+}
+
