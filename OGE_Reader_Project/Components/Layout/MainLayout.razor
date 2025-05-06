@@ -20,10 +20,18 @@
         
         -->
 
+        <MudButton Class="mr-4" Variant="Variant.Filled"
+                Color="Color.Dark"
+                Size="Size.Large"
+                StartIcon="@Icons.Material.Filled.FileDownload">
+            Create PDF
+        </MudButton>
+
         <MudFileUpload T="IBrowserFile" Accept=".csv" FilesChanged="FileUploaded">
             <ActivatorContent>
                 <MudButton Class="mr-4" Variant="Variant.Filled"
                         Style="background-color: #CD3825; color: white;"
+                        Size="Size.Large"
                         StartIcon="@Icons.Material.Filled.CloudUpload">
                     Upload
                 </MudButton>

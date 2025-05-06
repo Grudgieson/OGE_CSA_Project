@@ -72,6 +72,12 @@
 {
     private async Task OpenDialogAsync()
     {
+
+        // Save Initial Alert System Threashold Values so they can be restored if dialog is canceled
+        int intialDupThreashold = AlertSystem.duplicateThreashold;
+        int intialLowActivityThreashold = AlertSystem.lowUserActivityThreashold;
+        int intialHighUsageThreashold = AlertSystem.numberOfScansForUsageAlert;
+
         var dialog = await DialogService.ShowAsync<Settings_Dialog>("Options Dialog");
         var result = await dialog.Result;
 
@@ -79,6 +85,14 @@
         {
 
             FileStorage.GetAlerts();
+
+        }
+        else
+        {
+
+            AlertSystem.duplicateThreashold = intialDupThreashold;
+            AlertSystem.lowUserActivityThreashold = intialLowActivityThreashold;
+            AlertSystem.numberOfScansForUsageAlert = intialHighUsageThreashold;
 
         }
     }

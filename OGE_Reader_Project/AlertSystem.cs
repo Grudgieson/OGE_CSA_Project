@@ -7,6 +7,7 @@ public static class AlertSystem
     // Adjustable Threashold
     public static int lowUserActivityThreashold = 9;
     public static int duplicateThreashold = 50;
+    public static int numberOfScansForUsageAlert = 1500;
 
 
     // Holds every alert detected by the system
@@ -21,6 +22,7 @@ public static class AlertSystem
 
         masterAlertList = new List<DataAlert>();
         LowUserActivity();
+        UsageAlert();
 
     }
     static void LowUserActivity()
@@ -55,6 +57,29 @@ public static class AlertSystem
             }
 
         }
+
+    }
+    static void UsageAlert()
+    {
+
+        foreach(var entry in FileStorage.eventDictionary)
+        {
+
+            if(entry.Value.Count >= numberOfScansForUsageAlert)
+            {
+
+                masterAlertList.Add(new DataAlert("High Usage", $"Reader {entry.Key} at {entry.Value[0].GetEventDescription()} has captured {entry.Value.Count} scans. Maintenance may be required soon.", Severity.Error));
+
+
+            }
+
+        }
+
+    }
+    static void CheckForGhost()
+    {
+
+        
 
     }
     static void ActivitySpike()

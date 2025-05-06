@@ -71,17 +71,17 @@ public class FileStorage
             if(line == previousReadEntry)
             {
 
-                if(!duplicateEntries.ContainsKey($"{data[4]}-{data[5]}"))
+                if(!duplicateEntries.ContainsKey($"{data[4]}-{data[5]} at {data[2]}"))
                 {
 
-                    duplicateEntries[$"{data[4]}-{data[5]}"] = 1;
+                    duplicateEntries[$"{data[4]}-{data[5]} at {data[2]}"] = 1;
 
                 }
                 else
                 {
 
                     // Add one to a reader's duplicates in the duplicate entry
-                    duplicateEntries[$"{data[4]}-{data[5]}"]++;
+                    duplicateEntries[$"{data[4]}-{data[5]} at {data[2]}"]++;
 
                 }
                 
