@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "TPUjIBZPLtKL+uWdXMy2o4/9Q0UkpvF7v12VnGJfXQw=",
+  "Hash": "Nnbc03Jt3M0M1tVDZxdDI4FUNvtQmwT0VfBp5tbFLs8=",
   "Source": "OGE_Reader_Project",
   "BasePath": "_content/OGE_Reader_Project",
   "Mode": "Default",
@@ -72,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "c:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\OGE_Logo_Color.png",
+      "SourceId": "OGE_Reader_Project",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\",
+      "BasePath": "_content/OGE_Reader_Project",
+      "RelativePath": "OGE_Logo_Color.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\OGE_Logo_Color.png"
     },
     {
       "Identity": "c:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\oge_logo.png",

@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "c:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\OGE_Logo_Color.png",
+      "PackagePath": "staticwebassets\\OGE_Logo_Color.png"
+    },
+    {
       "Id": "c:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },

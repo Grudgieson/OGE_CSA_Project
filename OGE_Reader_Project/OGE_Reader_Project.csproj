@@ -6,8 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-
   <ItemGroup>
     <PackageReference Include="MudBlazor" Version="8.*" />
+    <PackageReference Include="QuestPDF" Version="2025.4.3" />
   </ItemGroup>
 </Project>

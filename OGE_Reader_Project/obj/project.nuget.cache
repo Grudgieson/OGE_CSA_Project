@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CZEoapgXLPqANSzRKdh4fBNxe9iyFYMbP9uQB85B8AnXe32eM+q70ztX9VjgPKEtwOUtC7iYYY0fYsVlfdEXJA==",
+  "dgSpecHash": "Jf3XqOImZ+scRrNmDKbCJh8suecmKhB2uVHrsrY509OFiHML6JUUP21BWQ4CBwc/UbM/JxjohvA32+Ngx2+9lg==",
   "success": true,
   "projectFilePath": "C:\\Users\\grudg\\Desktop\\OGE_CSA_Project\\OGE_Reader_Project\\OGE_Reader_Project.csproj",
   "expectedPackageFiles": [
@@ -19,6 +19,7 @@
     "C:\\Users\\grudg\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
     "C:\\Users\\grudg\\.nuget\\packages\\microsoft.jsinterop\\8.0.12\\microsoft.jsinterop.8.0.12.nupkg.sha512",
     "C:\\Users\\grudg\\.nuget\\packages\\mudblazor\\8.6.0\\mudblazor.8.6.0.nupkg.sha512",
+    "C:\\Users\\grudg\\.nuget\\packages\\questpdf\\2025.4.3\\questpdf.2025.4.3.nupkg.sha512",
     "C:\\Users\\grudg\\.nuget\\packages\\system.io.pipelines\\8.0.0\\system.io.pipelines.8.0.0.nupkg.sha512"
   ],
   "logs": []

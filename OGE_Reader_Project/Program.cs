@@ -1,6 +1,9 @@
 using MudBlazor.Services;
 using OGE_Reader_Project.Components;
 
+// Quest PDF Licensing
+QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add MudBlazor services
