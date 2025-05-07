@@ -25,6 +25,54 @@ public static class AlertSystem
         UsageAlert();
 
     }
+    public static List<DataAlert> OrganizeListByServerity()
+    {
+
+        List<DataAlert> organizedList = new List<DataAlert>();
+
+        foreach (DataAlert alert in masterAlertList)
+        {
+
+            if(alert.alertSeverity == Severity.Error)
+            {
+
+                organizedList.Add(alert);
+
+            }
+            else
+            {
+
+                if(alert.alertSeverity == Severity.Warning)
+                {
+
+                    organizedList.Add(alert);
+
+                }
+                else
+                {
+
+                    if (alert.alertSeverity == Severity.Info)
+                    {
+
+                        organizedList.Add(alert);
+
+                    }
+                    else
+                    {
+
+                        organizedList.Add(alert);
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        return organizedList;
+
+    }
     static void LowUserActivity()
     {
 
@@ -126,6 +174,29 @@ public static class AlertSystem
             alertType = newAlertType;
             alertDescription = newAlertDescription;
             alertSeverity = newAlertSeverity;
+
+        }
+
+        public string severityToString()
+        {
+
+            switch(alertSeverity)
+            {
+
+                case Severity.Info:
+                    return "Low";
+
+                case Severity.Warning:
+                    return "Moderate";
+
+                case Severity.Error:
+                    return "Critical";
+
+                default:
+                    return "N/A";
+
+
+            }
 
         }
 

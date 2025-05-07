@@ -401,6 +401,7 @@ public class FileStorage
 
         AlertSystem.ScanForAnomoly();
         AlertSystem.CheckForDuplicateAlert(duplicateEntries);
+        AlertSystem.OrganizeListByServerity();
         alertsList = AlertSystem.masterAlertList;
 
     }

@@ -110,9 +110,41 @@ public class ReportPDF : IDocument
                 column.Item().PaddingBottom(35)
                     .Text($"{Model.numberOfAlerts} Alerts")
                     .FontSize(14);
+
+                column.Item()
+                    .Table(table =>
+                    {
+
+                        table.ColumnsDefinition(columns =>
+                        {
+                            columns.ConstantColumn(100);
+                            columns.RelativeColumn();
+                            columns.ConstantColumn(75);
+                        });
+
+                        table.Header(header =>
+                        {
+                            header.Cell().BorderBottom(2).Padding(8).Text("Alert");
+                            header.Cell().BorderBottom(2).Padding(8).Text("Description");
+                            header.Cell().BorderBottom(2).Padding(8).AlignRight().Text("Severity");
+                        });
+                        
+                        foreach (var alert in AlertSystem.masterAlertList)
+                        {
+                            
+                            table.Cell().Padding(8).Text($"{alert.alertType}");
+                            table.Cell().Padding(8).Text($"{alert.alertDescription}");
+                            table.Cell().Padding(8).AlignRight().Text($"{alert.severityToString()}");
+
+                        }
+
+                    });
+
+
             });
 
         });
+        
     }
 
 }
