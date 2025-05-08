@@ -1,4 +1,5 @@
 using MudBlazor;
+using MudBlazor.Extensions;
 using System.Linq;
 
 public class FileStorage
@@ -22,6 +23,11 @@ public class FileStorage
 
 
     // Highlight Variables
+    public static DateRange dataTimeRange = new DateRange(DateTime.Today, DateTime.Today);
+    public static DateTime dataStartDate = DateTime.Now;
+    public static DateTime dataEndDate = DateTime.Now;
+    public static DateTime timeframeStart = DateTime.Now;
+    public static DateTime timeframeEnd = DateTime.Now;
     public static string mostActiveHashID = "(Upload a file)";
     public static string mostActiveHashIDScans = "0";
     public static string mostActiveReader = "(Upload a file)";
@@ -107,12 +113,14 @@ public class FileStorage
 
         masterListCount = masterList.Count;
 
+        // Set DateRange to the range within the data
+        dataStartDate = theMasterList.First().GetEventTime().Date.AddDays(-1);
+        dataEndDate = theMasterList[theMasterList.Count-1].GetEventTime();
+        timeframeStart = dataStartDate;
+        timeframeEnd = dataEndDate;
+
         // Returns a dictionary with Readers and their Respective Events
-        eventDictionary = OrganizeDictionData(masterList);
-        eventDictionaryFilteredByTime = OrganizeDictionByDayOfTheWeek(masterList);
-        eventDictionaryFilteredByDay = OrganizeDictionByDay(masterList);
-        eventDictionaryFilteredHashID = OrganizeDictionByHashID(masterList);
-        eventDictionaryFilteredPanelID = OrganizeDictionByPanel(masterList);
+        loadDictionaries(theMasterList);
 
         // Get highlights after all the dictionaries have been organized
         GetMostActiveHashID();
@@ -131,6 +139,17 @@ public class FileStorage
 
     }
 
+    public static void loadDictionaries(List<ReaderEvent> passedList)
+    {
+
+        eventDictionary = OrganizeDictionData(passedList);
+        eventDictionaryFilteredByTime = OrganizeDictionByDayOfTheWeek(passedList);
+        eventDictionaryFilteredByDay = OrganizeDictionByDay(passedList);
+        eventDictionaryFilteredHashID = OrganizeDictionByHashID(passedList);
+        eventDictionaryFilteredPanelID = OrganizeDictionByPanel(passedList);
+
+    }
+
     public static Dictionary<string, List<ReaderEvent>> OrganizeDictionData(List<ReaderEvent> rawData)
     {
 
@@ -140,15 +159,21 @@ public class FileStorage
         foreach(ReaderEvent rawReaderEvent in rawData)
         {
 
-            // Get the reader's ID that captured the event and add or create a section in the dictionary accordingly
-            var readerID = rawReaderEvent.GetEventUniqueID();
-            if(!resultDict.ContainsKey(readerID))
+            // Makes the Dictionary with only the specified DateRange
+            if(rawReaderEvent.GetEventTime() >= timeframeStart && rawReaderEvent.GetEventTime() <= timeframeEnd)
             {
 
-                resultDict[readerID] = new List<ReaderEvent>(); // Create a entry when unique readerID is found
+                // Get the reader's ID that captured the event and add or create a section in the dictionary accordingly
+                var readerID = rawReaderEvent.GetEventUniqueID();
+                if(!resultDict.ContainsKey(readerID))
+                {
+
+                    resultDict[readerID] = new List<ReaderEvent>(); // Create a entry when unique readerID is found
+
+                }
+                resultDict[readerID].Add(rawReaderEvent); // Add an event to the respective reader
 
             }
-            resultDict[readerID].Add(rawReaderEvent); // Add an event to the respective reader
 
         }
 
@@ -164,15 +189,21 @@ public class FileStorage
         foreach(ReaderEvent rawReaderEvent in masterList)
         {
 
-            // Get the reader's ID that captured the event and add or create a section in the dictionary accordingly
-            string dayOfEvent = rawReaderEvent.GetEventTime().Date.ToString("MMM dd");
-            if(!resultDict.ContainsKey(dayOfEvent))
+            // Makes the Dictionary with only the specified DateRange
+            if(rawReaderEvent.GetEventTime() >= timeframeStart && rawReaderEvent.GetEventTime() <= timeframeEnd)
             {
 
-                resultDict[dayOfEvent] = new List<ReaderEvent>(); // Create a entry when an event occured on a unique time is found
+                // Get the reader's ID that captured the event and add or create a section in the dictionary accordingly
+                string dayOfEvent = rawReaderEvent.GetEventTime().Date.ToString("MMM dd");
+                if(!resultDict.ContainsKey(dayOfEvent))
+                {
+
+                    resultDict[dayOfEvent] = new List<ReaderEvent>(); // Create a entry when an event occured on a unique time is found
+
+                }
+                resultDict[dayOfEvent].Add(rawReaderEvent); // Add an event to the respective reader
 
             }
-            resultDict[dayOfEvent].Add(rawReaderEvent); // Add an event to the respective reader
 
         }
 
@@ -188,15 +219,21 @@ public class FileStorage
         foreach(ReaderEvent rawReaderEvent in masterList)
         {
 
-            // Get the reader's ID that captured the event and add or create a section in the dictionary accordingly
-            string dayOfEvent = rawReaderEvent.GetEventTime().DayOfWeek.ToString();
-            if(!resultDict.ContainsKey(dayOfEvent))
+            // Makes the Dictionary with only the specified DateRange
+            if(rawReaderEvent.GetEventTime() >= timeframeStart && rawReaderEvent.GetEventTime() <= timeframeEnd)
             {
 
-                resultDict[dayOfEvent] = new List<ReaderEvent>(); // Create a entry when an event occured on a unique time is found
+                // Get the reader's ID that captured the event and add or create a section in the dictionary accordingly
+                string dayOfEvent = rawReaderEvent.GetEventTime().DayOfWeek.ToString();
+                if(!resultDict.ContainsKey(dayOfEvent))
+                {
+
+                    resultDict[dayOfEvent] = new List<ReaderEvent>(); // Create a entry when an event occured on a unique time is found
+
+                }
+                resultDict[dayOfEvent].Add(rawReaderEvent); // Add an event to the respective reader
 
             }
-            resultDict[dayOfEvent].Add(rawReaderEvent); // Add an event to the respective reader
 
         }
 
@@ -212,15 +249,21 @@ public class FileStorage
         foreach(ReaderEvent rawReaderEvent in masterList)
         {
 
-            // Get the reader's ID that captured the event and add or create a section in the dictionary accordingly
-            string userHashID = rawReaderEvent.GetEventHashID();
-            if(!resultDict.ContainsKey(userHashID))
+            // Makes the Dictionary with only the specified DateRange
+            if(rawReaderEvent.GetEventTime() >= timeframeStart && rawReaderEvent.GetEventTime() <= timeframeEnd)
             {
 
-                resultDict[userHashID] = new List<ReaderEvent>(); // Create a entry when an event occured on a unique time is found
+                // Get the reader's ID that captured the event and add or create a section in the dictionary accordingly
+                string userHashID = rawReaderEvent.GetEventHashID();
+                if(!resultDict.ContainsKey(userHashID))
+                {
+
+                    resultDict[userHashID] = new List<ReaderEvent>(); // Create a entry when an event occured on a unique time is found
+
+                }
+                resultDict[userHashID].Add(rawReaderEvent); // Add an event to the respective reader
 
             }
-            resultDict[userHashID].Add(rawReaderEvent); // Add an event to the respective reader
 
         }
 
@@ -236,15 +279,21 @@ public class FileStorage
         foreach(ReaderEvent rawReaderEvent in masterList)
         {
 
-            // Get the reader's ID that captured the event and add or create a section in the dictionary accordingly
-            string panelID = rawReaderEvent.GetEventDevID();
-            if(!resultDict.ContainsKey(panelID))
+            // Makes the Dictionary with only the specified DateRange
+            if(rawReaderEvent.GetEventTime() >= timeframeStart && rawReaderEvent.GetEventTime() <= timeframeEnd)
             {
 
-                resultDict[panelID] = new List<ReaderEvent>(); // Create a entry when an event occured on a unique time is found
+                // Get the reader's ID that captured the event and add or create a section in the dictionary accordingly
+                string panelID = rawReaderEvent.GetEventDevID();
+                if(!resultDict.ContainsKey(panelID))
+                {
+
+                    resultDict[panelID] = new List<ReaderEvent>(); // Create a entry when an event occured on a unique time is found
+
+                }
+                resultDict[panelID].Add(rawReaderEvent); // Add an event to the respective reader
 
             }
-            resultDict[panelID].Add(rawReaderEvent); // Add an event to the respective reader
 
         }
 
@@ -400,8 +449,6 @@ public class FileStorage
     {
 
         AlertSystem.ScanForAnomoly();
-        AlertSystem.CheckForDuplicateAlert(duplicateEntries);
-        AlertSystem.OrganizeListByServerity();
         alertsList = AlertSystem.masterAlertList;
 
     }
@@ -413,7 +460,7 @@ public class FileStorage
 
         // Sets Graph display settings
         axisOptions.MatchBoundsToSize = true;
-        Options.InterpolationOption = InterpolationOption.NaturalSpline;
+        //Options.InterpolationOption = InterpolationOption.NaturalSpline;
 
         // Set the labels of the chart using the keys of the dictionary
         XAxisLabels = eventDictionaryFilteredByDay.Keys.ToArray();
@@ -429,11 +476,38 @@ public class FileStorage
         }
 
         // Add a new chart series for the chart with the data obtained from above
-        Series = new List<ChartSeries>();
-        Series.Add(new ChartSeries { Name = "Number of Scans", Data = listOfEventsForEachDayOfTheWeek.ToArray() } );
+        Series = [new ChartSeries { Name = "Number of Scans", Data = listOfEventsForEachDayOfTheWeek.ToArray() }];
         
 
     }
+
+    public async static Task OnTimeframeFilter()
+    {
+
+        Console.WriteLine("FilterOnTimeFrameCalled");
+        Console.WriteLine($"Date Range is {dataTimeRange.Start} and {dataTimeRange.End}");
+
+        timeframeStart = (DateTime)dataTimeRange.Start;
+        timeframeEnd = (DateTime)dataTimeRange.End;
+        
+
+
+        loadDictionaries(theMasterList);
+
+        // Get highlights after all the dictionaries have been organized
+        GetMostActiveHashID();
+        GetMostActiveReader();
+        GetBusiestDay();
+        GetAverageUniqueVisitorsPerDay();
+
+        // Get Data for graph
+        GetChartDataForDashboard();
+
+        // Scan for Anomolies
+        GetAlerts();
+
+    }
+
 
     public class ReaderEvent
     {
@@ -494,6 +568,13 @@ public class FileStorage
                 return false;
 
             }
+
+        }
+
+        public override string ToString()
+        {
+
+            return $"Date: {GetEventTime()}, Location: {GetEventLocation()}, Description: {GetEventDescription()}, UserID: {GetEventHashID()}, ReaderID: {GetEventUniqueID()}";
 
         }
 

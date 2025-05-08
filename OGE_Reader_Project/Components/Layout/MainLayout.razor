@@ -13,14 +13,17 @@
         <MudImage Src="oge_logo.png" Width="102" Alt="Oklahoma Gas and Electric Logo"></MudImage>
         <MudSpacer />
 
-        
-
         <!--
         
         <MudButton Class="mr-4" Href="/" Color="Color.Inherit" Variant.Text>Dashboard</MudButton>
         <MudButton Class="mr-4" Href="counter" Variant.Text>Counter</MudButton>
         
         -->
+
+        <div>
+            <MudDateRangePicker Class="mr-4" DateRangeChanged="@OnDateRangeChanged" MinDate="FileStorage.dataStartDate" MaxDate="@FileStorage.dataEndDate" DateFormat="dd MMMM, yyyy" TitleDateFormat="MMMM dd" Margin="Margin.Dense" Variant="Variant.Filled" Label="Timeframe"/>
+        </div>
+    
 
         <MudButton Class="mr-4" Variant="Variant.Filled" OnClick="@GeneratorReport"
                 Color="Color.Dark"
@@ -163,6 +166,13 @@
         }
     }
 
+    private async Task OnDateRangeChanged(DateRange newRange)
+    {
+        FileStorage.dataTimeRange = newRange; 
+        await FileStorage.OnTimeframeFilter(); 
+        StateHasChanged();
+        navManager.Refresh(true);
+    }
     public void GeneratorReport()
     {
 

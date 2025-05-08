@@ -26,15 +26,15 @@
         </div>
     </MudItem>
 
-    <MudItem xs="6">
-        <MudTable Class="mb-4" Style="width:800px" Items="@AlertSystem.masterAlertList" FixedHeader="true" Dense="true" Filter="new Func<AlertSystem.DataAlert,bool>(SearchFilterFunc)">
+    <MudItem xs="6" Style="height: 400px;">
+        <MudTable Class="mb-4" Style="width:800px" Items="@AlertSystem.masterAlertList" FixedHeader="true" Filter="new Func<AlertSystem.DataAlert,bool>(SearchFilterFunc)">
             <ToolBarContent>
                 <MudTextField @bind-Value="tableSearchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
                 <MudSpacer />
                 <MudIconButton Icon="@Icons.Material.Filled.Settings" aria-label="Alert System Settings" OnClick="OpenDialogAsync"></MudIconButton>
             </ToolBarContent>
             <ColGroup>
-                <col style="overflow-wrap; width: 20%;" />
+                <col style="overflow-wrap; width: 15%;" />
                 <col style="overflow-wrap;" />
                 <col style="width: 15%;" />
             </ColGroup>
@@ -46,13 +46,35 @@
             <RowTemplate>
                 <MudTd DataLabel="Alert">@context.alertType</MudTd>
                 <MudTd DataLabel="Description">@context.alertDescription</MudTd>
-                <MudTd DataLabel="Severity"><MudAlert Severity="@context.alertSeverity" ContentAlignment="HorizontalAlignment.Center"></MudAlert></MudTd>
+                <MudTd style="align-items: center;" DataLabel="Severity">
+                    @if(context.alertSeverity == Severity.Error)
+                    {
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <MudIcon Icon="@Icons.Material.Filled.Circle" Color="Color.Error"/>
+                        </div>
+                    }
+                    else if(context.alertSeverity == Severity.Warning)
+                    {
+
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <MudIcon Icon="@Icons.Material.Filled.Circle" Color="Color.Warning"/>
+                        </div>
+
+                    }
+                    else if(context.alertSeverity == Severity.Info)
+                    {
+
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <MudIcon Icon="@Icons.Material.Filled.Circle" Color="Color.Info"/>
+                        </div>
+
+                    }
+                    </MudTd>
             </RowTemplate>
             <PagerContent>
                 <MudTablePager
-                    PageSizeOptions="new int[] {7}"
+                    PageSizeOptions="new int[] {6}"
                     HideRowsPerPage="true"
-                    HidePageNumber="true"
                     />
             </PagerContent>
         </MudTable>
@@ -74,9 +96,10 @@
     {
 
         // Save Initial Alert System Threashold Values so they can be restored if dialog is canceled
-        int intialDupThreashold = AlertSystem.duplicateThreashold;
-        int intialLowActivityThreashold = AlertSystem.lowUserActivityThreashold;
+        int intialDupThreashold = AlertSystem.duplicateThreshold;
+        int intialLowActivityThreashold = AlertSystem.lowUserActivityThreshold;
         int intialHighUsageThreashold = AlertSystem.numberOfScansForUsageAlert;
+        int intialImpossibleMovesToAlertThreashold = AlertSystem.numberOfImpossibleMovesToAlert;
 
         var dialog = await DialogService.ShowAsync<Settings_Dialog>("Options Dialog");
         var result = await dialog.Result;
@@ -90,9 +113,10 @@
         else
         {
 
-            AlertSystem.duplicateThreashold = intialDupThreashold;
-            AlertSystem.lowUserActivityThreashold = intialLowActivityThreashold;
+            AlertSystem.duplicateThreshold = intialDupThreashold;
+            AlertSystem.lowUserActivityThreshold = intialLowActivityThreashold;
             AlertSystem.numberOfScansForUsageAlert = intialHighUsageThreashold;
+            AlertSystem.numberOfImpossibleMovesToAlert = intialImpossibleMovesToAlertThreashold;
 
         }
     }

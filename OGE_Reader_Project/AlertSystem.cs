@@ -5,9 +5,10 @@ public static class AlertSystem
 {
 
     // Adjustable Threashold
-    public static int lowUserActivityThreashold = 9;
-    public static int duplicateThreashold = 50;
+    public static int lowUserActivityThreshold = 9;
+    public static int duplicateThreshold = 50;
     public static int numberOfScansForUsageAlert = 1500;
+    public static int numberOfImpossibleMovesToAlert = 3;
 
 
     // Holds every alert detected by the system
@@ -21,56 +22,11 @@ public static class AlertSystem
     {
 
         masterAlertList = new List<DataAlert>();
-        LowUserActivity();
+        CheckForGhost();
         UsageAlert();
-
-    }
-    public static List<DataAlert> OrganizeListByServerity()
-    {
-
-        List<DataAlert> organizedList = new List<DataAlert>();
-
-        foreach (DataAlert alert in masterAlertList)
-        {
-
-            if(alert.alertSeverity == Severity.Error)
-            {
-
-                organizedList.Add(alert);
-
-            }
-            else
-            {
-
-                if(alert.alertSeverity == Severity.Warning)
-                {
-
-                    organizedList.Add(alert);
-
-                }
-                else
-                {
-
-                    if (alert.alertSeverity == Severity.Info)
-                    {
-
-                        organizedList.Add(alert);
-
-                    }
-                    else
-                    {
-
-                        organizedList.Add(alert);
-
-                    }
-
-                }
-
-            }
-
-        }
-
-        return organizedList;
+        CheckForDuplicateAlert();
+        LowUserActivity();
+        
 
     }
     static void LowUserActivity()
@@ -80,7 +36,7 @@ public static class AlertSystem
         foreach(var entry in FileStorage.eventDictionaryFilteredHashID)
         {
 
-            if(entry.Value.Count() <= lowUserActivityThreashold)
+            if(entry.Value.Count() <= lowUserActivityThreshold)
             {
 
                 masterAlertList.Add(new DataAlert("Low User Activity", $"User {entry.Key} has a total of {entry.Value.Count()} Scans", Severity.Info));
@@ -90,13 +46,15 @@ public static class AlertSystem
         }
 
     }
-    public static void CheckForDuplicateAlert(Dictionary<string, int> duplicateDictionary)
+    public static void CheckForDuplicateAlert()
     {
+
+        Dictionary<string, int> duplicateDictionary = FileStorage.duplicateEntries;
 
         foreach(var dup in duplicateDictionary)
         {
 
-            if(dup.Value >= duplicateThreashold)
+            if(dup.Value >= duplicateThreshold)
             {
 
                 masterAlertList.Add(new DataAlert("High Number Duplicates", $"Reader {dup.Key} has reported {dup.Value} exact duplicate scan entries.", Severity.Warning));
@@ -127,7 +85,51 @@ public static class AlertSystem
     static void CheckForGhost()
     {
 
-        
+        Dictionary<string, int> impossibleMoveUsers = new Dictionary<string, int>();
+
+        foreach(var user in FileStorage.eventDictionaryFilteredHashID)
+        {
+
+            FileStorage.ReaderEvent lastEvent = null;
+
+            foreach(var re in user.Value)
+            {
+
+                if(lastEvent != null && re.GetEventTime() == lastEvent.GetEventTime())
+                {
+
+                    if(impossibleMoveUsers.ContainsKey(user.Key))
+                    {
+
+                        impossibleMoveUsers[user.Key]++;
+
+                    }
+                    else
+                    {
+
+                        impossibleMoveUsers.Add(user.Key, 1);
+
+                    }
+
+                }
+
+                lastEvent = re;
+
+            }
+
+        }
+
+        foreach(var entry in impossibleMoveUsers)
+        {
+
+            if(entry.Value >= numberOfImpossibleMovesToAlert)
+            {
+
+                masterAlertList.Add(new DataAlert("Impossible Movement", $"User {entry.Key} scanned in more than one place {entry.Value} times", Severity.Error));
+
+            }
+
+        }
 
     }
     static void ActivitySpike()

@@ -3,9 +3,10 @@
         <MudText Typo="Typo.h5">Alert System Settings</MudText>
     </TitleContent>
     <DialogContent>
-        <MudNumericField @bind-Value="AlertSystem.numberOfScansForUsageAlert" Label="High Usage Alert Threashold" Variant="Variant.Outlined" />
-        <MudNumericField @bind-Value="AlertSystem.duplicateThreashold" Label="Duplicate Threashold" Variant="Variant.Outlined" />
-        <MudNumericField @bind-Value="AlertSystem.lowUserActivityThreashold" Label="Low Activity Threashold" Variant="Variant.Outlined" />
+        <MudNumericField @bind-Value="AlertSystem.numberOfImpossibleMovesToAlert" Label="Impossible Moves to Alert" Variant="Variant.Outlined" />
+        <MudNumericField @bind-Value="AlertSystem.numberOfScansForUsageAlert" Label="High Usage Alert Threshold" Variant="Variant.Outlined" />
+        <MudNumericField @bind-Value="AlertSystem.duplicateThreshold" Label="Duplicate Threshold" Variant="Variant.Outlined" />
+        <MudNumericField @bind-Value="AlertSystem.lowUserActivityThreshold" Label="Low Activity Threshold" Variant="Variant.Outlined" />
     </DialogContent>
     <DialogActions>
         <MudButton Color="Color.Default" OnClick="Apply">Apply</MudButton>
