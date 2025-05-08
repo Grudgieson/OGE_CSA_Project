@@ -3,90 +3,108 @@
 
 <PageTitle>Dashboard</PageTitle>
 
-<MudGrid Spacing="0" Justify="Justify.Center" style="display: flex;">
-    <MudItem xs="6">
-        <div Class="ml-20">
+<div style="display: flex; width: 100%;">
+    <MudGrid Spacing="0" Justify="Justify.Center" style="display: flex;">
+        <MudItem xs="6">
+            <div Class="ml-20">
 
-            <MudText Typo="Typo.h4"Class="mt-8 pb-4">Most Active User</MudText>
-            <MudText Typo="Typo.h5"Class="ml-8">@FileStorage.mostActiveHashID</MudText>
-            <MudText Typo="Typo.h6"Class="ml-8">@FileStorage.mostActiveHashIDScans Scans</MudText>
+                <div style="flex: 1; padding: 10px;">
+                
+                    <MudPaper Class="pa-4 ma-2">
+                    <MudText Typo="Typo.h4"Class="">Most Active User</MudText>
+                    <MudText Typo="Typo.h5"Class="ml-8">@FileStorage.mostActiveHashID</MudText>
+                    <MudText Typo="Typo.h6"Class="ml-8">@FileStorage.mostActiveHashIDScans Scans</MudText>
+                    </MudPaper>
 
-            <MudText Typo="Typo.h4"Class="mt-8 pb-4">Most Active Reader</MudText>
-            <MudText Typo="Typo.h5"Class="ml-8">@FileStorage.mostActiveReader</MudText>
-            <MudText Typo="Typo.h6"Class="ml-8">@FileStorage.mostActiveReaderEventCount Scans</MudText>
+                    <MudPaper Class="pa-4 ma-2">
+                    <MudText Typo="Typo.h4"Class="">Most Active Reader</MudText>
+                    <MudText Typo="Typo.h5"Class="ml-8">@FileStorage.mostActiveReader</MudText>
+                    <MudText Typo="Typo.h6"Class="ml-8">@FileStorage.mostActiveReaderEventCount Scans</MudText>
+                    </MudPaper>
 
-            <MudText Typo="Typo.h4"Class="mt-8 pb-4">Busiest Day of The Week</MudText>
-            <MudText Typo="Typo.h5"Class="ml-8">@FileStorage.busiestDay</MudText>
-            <MudText Typo="Typo.h6"Class="ml-8">@FileStorage.busiestDayAverageScans Average Scans</MudText>
+                    <MudPaper Class="pa-4 ma-2">
+                    <MudText Typo="Typo.h4"Class="">Busiest Day of The Week</MudText>
+                    <MudText Typo="Typo.h5"Class="ml-8">@FileStorage.busiestDay</MudText>
+                    <MudText Typo="Typo.h6"Class="ml-8">@FileStorage.busiestDayAverageScans Average Scans</MudText>
+                    </MudPaper>
 
-            <MudText Typo="Typo.h4"Class="mt-8 pb-4">Average Unique Visitors Per Day</MudText>
-            <MudText Typo="Typo.h5"Class="ml-8">Unique Visitors</MudText>
-            <MudText Typo="Typo.h6"Class="ml-8">@FileStorage.averageUniqueVisitorsPerDay People</MudText>
+                    <MudPaper Class="pa-4 ma-2">
+                    <MudText Typo="Typo.h4"Class="">Average Unique Visitors Per Day</MudText>
+                    <MudText Typo="Typo.h5"Class="ml-8">Unique Visitors</MudText>
+                    <MudText Typo="Typo.h6"Class="ml-8">@FileStorage.averageUniqueVisitorsPerDay People</MudText>
+                    </MudPaper>
 
-        </div>
-    </MudItem>
+                </div>
 
-    <MudItem xs="6" Style="height: 400px;">
-        <MudTable Class="mb-4" Style="width:800px" Items="@AlertSystem.masterAlertList" FixedHeader="true" Filter="new Func<AlertSystem.DataAlert,bool>(SearchFilterFunc)">
-            <ToolBarContent>
-                <MudTextField @bind-Value="tableSearchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-                <MudSpacer />
-                <MudIconButton Icon="@Icons.Material.Filled.Settings" aria-label="Alert System Settings" OnClick="OpenDialogAsync"></MudIconButton>
-            </ToolBarContent>
-            <ColGroup>
-                <col style="overflow-wrap; width: 15%;" />
-                <col style="overflow-wrap;" />
-                <col style="width: 15%;" />
-            </ColGroup>
-            <HeaderContent>
-                <MudTh>Alert</MudTh>
-                <MudTh>Description</MudTh>
-                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Descending" SortBy="new Func<AlertSystem.DataAlert, object>(x=>x.alertSeverity)"></MudTableSortLabel>Severity</MudTh>
-            </HeaderContent>
-            <RowTemplate>
-                <MudTd DataLabel="Alert">@context.alertType</MudTd>
-                <MudTd DataLabel="Description">@context.alertDescription</MudTd>
-                <MudTd style="align-items: center;" DataLabel="Severity">
-                    @if(context.alertSeverity == Severity.Error)
-                    {
-                        <div style="display: flex; justify-content: center; align-items: center;">
-                            <MudIcon Icon="@Icons.Material.Filled.Circle" Color="Color.Error"/>
-                        </div>
-                    }
-                    else if(context.alertSeverity == Severity.Warning)
-                    {
+            </div>
+        </MudItem>
 
-                        <div style="display: flex; justify-content: center; align-items: center;">
-                            <MudIcon Icon="@Icons.Material.Filled.Circle" Color="Color.Warning"/>
-                        </div>
+        <MudItem xs="6" Style="height: 400px;">
+            <div style="flex: 1; padding: 10px;">
+                <MudTable Class="mb-4" Style="width:800px" Items="@AlertSystem.masterAlertList" FixedHeader="true" Filter="new Func<AlertSystem.DataAlert,bool>(SearchFilterFunc)">
+                    <ToolBarContent>
+                        <MudTextField @bind-Value="tableSearchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+                        <MudSpacer />
+                        <MudIconButton Icon="@Icons.Material.Filled.Settings" aria-label="Alert System Settings" OnClick="OpenDialogAsync"></MudIconButton>
+                    </ToolBarContent>
+                    <ColGroup>
+                        <col style="overflow-wrap; width: 15%;" />
+                        <col style="overflow-wrap;" />
+                        <col style="width: 15%;" />
+                    </ColGroup>
+                    <HeaderContent>
+                        <MudTh>Alert</MudTh>
+                        <MudTh>Description</MudTh>
+                        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Descending" SortBy="new Func<AlertSystem.DataAlert, object>(x=>x.alertSeverity)"></MudTableSortLabel>Severity</MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd DataLabel="Alert">@context.alertType</MudTd>
+                        <MudTd DataLabel="Description">@context.alertDescription</MudTd>
+                        <MudTd style="align-items: center;" DataLabel="Severity">
+                            @if(context.alertSeverity == Severity.Error)
+                            {
+                                <div style="display: flex; justify-content: center; align-items: center;">
+                                    <MudIcon Icon="@Icons.Material.Filled.Circle" Color="Color.Error"/>
+                                </div>
+                            }
+                            else if(context.alertSeverity == Severity.Warning)
+                            {
 
-                    }
-                    else if(context.alertSeverity == Severity.Info)
-                    {
+                                <div style="display: flex; justify-content: center; align-items: center;">
+                                    <MudIcon Icon="@Icons.Material.Filled.Circle" Color="Color.Warning"/>
+                                </div>
 
-                        <div style="display: flex; justify-content: center; align-items: center;">
-                            <MudIcon Icon="@Icons.Material.Filled.Circle" Color="Color.Info"/>
-                        </div>
+                            }
+                            else if(context.alertSeverity == Severity.Info)
+                            {
 
-                    }
-                    </MudTd>
-            </RowTemplate>
-            <PagerContent>
-                <MudTablePager
-                    PageSizeOptions="new int[] {6}"
-                    HideRowsPerPage="true"
-                    />
-            </PagerContent>
-        </MudTable>
-    </MudItem>
-</MudGrid>
+                                <div style="display: flex; justify-content: center; align-items: center;">
+                                    <MudIcon Icon="@Icons.Material.Filled.Circle" Color="Color.Info"/>
+                                </div>
+
+                            }
+                            </MudTd>
+                    </RowTemplate>
+                    <PagerContent>
+                        <MudTablePager
+                            PageSizeOptions="new int[] {6}"
+                            HideRowsPerPage="true"
+                            />
+                    </PagerContent>
+                </MudTable>
+            </div>
+        </MudItem>
+    </MudGrid>
+</div>
 
 <div class="ml-20">
     <MudText Typo="Typo.h6"Class="mt-8">Scan Activity Over (@FileStorage.chartFilter)</MudText>
 
     <div style="display: flex; justify-content: center;">
+        <MudPaper Class="pa-4 ma-2">
             <MudChart ChartType="ChartType.Line" ChartSeries="@FileStorage.Series" XAxisLabels="@FileStorage.XAxisLabels" Width="100%" Height="420px" ChartOptions="@FileStorage.Options" AxisChartOptions="@FileStorage.axisOptions"></MudChart>
-	</div>
+        </MudPaper>
+    </div>
 
 </div>
 
